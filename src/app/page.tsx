@@ -1,95 +1,48 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const router = useRouter()
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+      <main className="max-w-screen-2xl mx-auto px-6 sm:px-8 py-10">
+        <section>
+          <h2 className="text-lg font-semibold mb-6">판매글 목록</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl shadow-md border border-gray-200 p-6 flex flex-col justify-between h-full hover:shadow-lg transition-shadow"
+              >
+                <div>
+                  <h3 className="text-base font-bold mb-2">
+                    [제목] 판매글 제목 {i + 1}
+                  </h3>
+                  <p className="text-sm text-gray-600">판매 내용</p>
+                </div>
+                <button
+                  className="mt-4 w-full h-10 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base rounded-md font-semibold transition-colors"
+                  onClick={() => router.push('/post/1')}
+                >
+                  매칭 요청
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="fixed bottom-5 right-5 z-50">
+          <button
+            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-lg text-sm transition hover:scale-105"
+            onClick={() => router.push('/post')}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+            <span className="hidden sm:inline">판매글 등록하기</span>
+            <span className="sm:hidden">등록</span>
+          </button>
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }

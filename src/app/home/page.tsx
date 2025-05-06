@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, {useState} from "react";
+import Link from "next/link";
 
 export default function Page() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -8,13 +9,13 @@ export default function Page() {
         <div className="min-h-screen bg-white text-gray-900">
             <header className="sticky top-0 z-20 bg-white border-b shadow-sm">
                 <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 py-4 sm:py-6 flex justify-between items-center">
-                    <h1 className="text-xl font-bold">COURIER</h1>
+                    <h1 className="text-xl font-bold">쿠리어</h1>
 
                     {/* 데스크톱 네비게이션 */}
                     <nav className="hidden md:flex gap-6 text-sm font-medium">
-                        <a href="#" className="hover:text-blue-600 transition-colors">판매글 등록</a>
-                        <a href="#" className="hover:text-blue-600 transition-colors">내 매칭</a>
-                        <a href="#" className="hover:text-blue-600 transition-colors">프로필</a>
+                        <Link href="/post" className="hover:text-blue-600 transition-colors">판매글 등록</Link>
+                        <Link href="#" className="hover:text-blue-600 transition-colors">내 매칭</Link>
+                        <Link href="#" className="hover:text-blue-600 transition-colors">프로필</Link>
                     </nav>
 
                     {/* 모바일 메뉴 버튼 */}
@@ -38,9 +39,9 @@ export default function Page() {
                 {mobileMenuOpen && (
                     <div className="md:hidden bg-white border-t px-6 py-4 fixed top-[64px] left-0 w-full shadow-md z-30">
                         <nav className="flex flex-col space-y-4 text-sm font-medium">
-                            <a href="#" className="hover:text-blue-600">판매글 등록</a>
-                            <a href="#" className="hover:text-blue-600">내 매칭</a>
-                            <a href="#" className="hover:text-blue-600">프로필</a>
+                            <Link href="#" className="hover:text-blue-600">판매글 등록</Link>
+                            <Link href="#" className="hover:text-blue-600">내 매칭</Link>
+                            <Link href="#" className="hover:text-blue-600">프로필</Link>
                         </nav>
                     </div>
                 )}
