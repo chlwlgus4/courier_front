@@ -32,7 +32,7 @@ const eslintConfig = [
         },
       ],
       "prettier/prettier": [
-        "error",
+        "warn",
         {
           trailingComma: "all",
           endOfLine: "lf",
