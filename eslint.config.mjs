@@ -11,7 +11,11 @@ const compat = new FlatCompat({
 })
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.extends(
+    "next/core-web-vitals",
+    "next/typescript",
+    "prettier" // 이 줄 추가!
+  ),
   {
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
@@ -27,7 +31,6 @@ const eslintConfig = [
           alphabetize: { order: "asc" },
         },
       ],
-      // ✅ Prettier 룰과 설정 통합
       "prettier/prettier": [
         "error",
         {
