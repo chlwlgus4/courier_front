@@ -2,6 +2,7 @@ import { dirname } from "path"
 import { fileURLToPath } from "url"
 import { FlatCompat } from "@eslint/eslintrc"
 import prettierPlugin from "eslint-plugin-prettier"
+import importPlugin from 'eslint-plugin-import'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -14,13 +15,29 @@ const eslintConfig = [
   ...compat.extends(
     "next/core-web-vitals",
     "next/typescript",
-    "prettier" // 이 줄 추가!
+    "prettier"
   ),
   {
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
       prettier: prettierPlugin,
+      import: importPlugin,
     },
+
+    settings: {
+      'import/resolver': {
+        // 1) TypeScript 경로(alias) 인식
+        typescript: {
+          project: './tsconfig.json',
+        },
+        // 2) node 기본 해석도 (src/ 를 base 경로로)
+        node: {
+          paths: ['src'],
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      },
+    },
+
     rules: {
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
