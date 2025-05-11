@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/common/Header'
+import MobileHeader from '@/components/common/MobileHeader'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,7 +28,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Header />
-        <div className={'pt-15 sm:pt-20 lg:pt-20 xl:pt-20'}>{children}</div>
+        <MobileHeader />
+        <div className={'pt-13 sm:pt-20 lg:pt-20 xl:pt-20'}>{children}</div>
       </body>
     </html>
   )
