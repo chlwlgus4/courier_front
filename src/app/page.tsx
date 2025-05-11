@@ -1,48 +1,115 @@
+// src/app/page.tsx
 'use client'
-import { useRouter } from 'next/navigation'
-import React from 'react'
 
-export default function Home() {
-  const router = useRouter()
+import Image from 'next/image'
+import {
+  FcGlobe, // 해외배송
+  FcShop, // 구매대행
+  FcExport, // 배송대행
+  FcHome, // 배대지
+  FcBullish,
+  FcAssistant,
+  FcLike,
+} from 'react-icons/fc'
+import { FiBell, FiShoppingCart, FiHome } from 'react-icons/fi'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <main className="max-w-screen-2xl mx-auto px-6 sm:px-8 py-10">
-        <section>
-          <h2 className="text-lg font-semibold mb-6">판매글 목록</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[...Array(6)].map((_, i) => (
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* 헤더 */}
+      <header className="flex items-center justify-between px-4 py-3 bg-white shadow">
+        <button>
+          <GiHamburgerMenu size={24} />
+        </button>
+        <div className="font-bold text-lg">BBQ 판교대장지구점</div>
+        <div className="flex items-center gap-4">
+          <FiBell size={24} />
+          <FiShoppingCart size={24} />
+        </div>
+      </header>
+
+      {/* “잠깐 이 주소가 맞나요?” 검색 바 */}
+      <div className="px-4 py-2 bg-blue-600 text-white rounded-b-xl">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image src="/location-pin.svg" width={20} height={20} alt="" />
+            <span>잠깐! 이 주소가 맞나요?</span>
+          </div>
+          <button className="font-bold">X</button>
+        </div>
+      </div>
+
+      <main className="flex-1 overflow-auto px-4 py-3">
+        {/* 공지/광고 배너 */}
+        <div className="bg-blue-400 text-white rounded-xl h-36 flex items-center justify-center text-2xl font-semibold shadow">
+          공지 및 광고
+        </div>
+
+        {/* 2×2 메뉴 그리드 */}
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          {[
+            { icon: <FcGlobe size={32} />, label: '해외배송' },
+            { icon: <FcShop size={32} />, label: '구매대행' },
+            { icon: <FcExport size={32} />, label: '배송대행' },
+            { icon: <FcHome size={32} />, label: '배대지' },
+          ].map((item) => (
+            <button
+              key={item.label}
+              className="bg-blue-400 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
+            >
+              {item.icon}
+              <span className="mt-2 font-medium">{item.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* 카테고리 아이콘 리스트 */}
+        <div className="mt-6 overflow-x-auto">
+          <div className="flex space-x-4">
+            {[
+              { icon: <FcBullish size={28} />, label: '장보기' },
+              { icon: <FcAssistant size={28} />, label: '한식' },
+              { icon: <FcLike size={28} />, label: '디저트' },
+              // 필요에 따라 추가…
+            ].map((item) => (
               <div
-                key={i}
-                className="bg-white rounded-xl shadow-md border border-gray-200 p-6 flex flex-col justify-between h-full hover:shadow-lg transition-shadow"
+                key={item.label}
+                className="flex-shrink-0 flex flex-col items-center"
               >
-                <div>
-                  <h3 className="text-base font-bold mb-2">
-                    [제목] 판매글 제목 {i + 1}
-                  </h3>
-                  <p className="text-sm text-gray-600">판매 내용</p>
+                <div className="bg-white p-2 rounded-full shadow">
+                  {item.icon}
                 </div>
-                <button
-                  className="mt-4 w-full h-10 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base rounded-md font-semibold transition-colors"
-                  onClick={() => router.push('/post/1')}
-                >
-                  매칭 요청
-                </button>
+                <span className="mt-1 text-sm">{item.label}</span>
               </div>
             ))}
           </div>
-        </section>
-
-        <div className="fixed bottom-5 right-5 z-50">
-          <button
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-lg text-sm transition hover:scale-105"
-            onClick={() => router.push('/post')}
-          >
-            <span className="hidden sm:inline">판매글 등록하기</span>
-            <span className="sm:hidden">등록</span>
-          </button>
         </div>
       </main>
+
+      {/* 하단 내비게이션 */}
+      <nav className="h-16 bg-white border-t flex justify-around items-center">
+        <button className="flex flex-col items-center text-blue-500">
+          <FiHome size={24} />
+          <span className="text-xs">홈</span>
+        </button>
+        <button className="flex flex-col items-center text-gray-500">
+          <GiHamburgerMenu size={24} />
+          <span className="text-xs">장보기·쇼핑</span>
+        </button>
+        <button className="flex flex-col items-center text-gray-500">
+          <FcLike size={24} />
+          <span className="text-xs">찜</span>
+        </button>
+        <button className="flex flex-col items-center text-gray-500">
+          <FcAssistant size={24} />
+          <span className="text-xs">주문내역</span>
+        </button>
+        <button className="flex flex-col items-center text-gray-500">
+          <GiHamburgerMenu size={24} />
+          <span className="text-xs">마이배민</span>
+        </button>
+      </nav>
     </div>
   )
 }
