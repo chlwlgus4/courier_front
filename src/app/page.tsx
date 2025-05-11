@@ -2,7 +2,7 @@
 'use client'
 
 import Link from 'next/link'
-import React, { ReactNode } from 'react'
+import React from 'react'
 import {
   FcAssistant,
   FcBullish,
@@ -12,14 +12,13 @@ import {
   FcLike,
   FcShop,
 } from 'react-icons/fc'
-import { FiHome } from 'react-icons/fi'
-import { GiHamburgerMenu } from 'react-icons/gi'
+import NavigationBar from '@/components/common/NavigationBar'
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col pb-16">
       {' '}
-      <main className="flex-1 overflow-auto px-4 py-3">
+      <main className="flex-1 overflow-auto scrollbar-hide px-4 py-3">
         {/* 공지/광고 배너 */}
         <div className="bg-blue-400 text-white rounded-xl h-36 flex items-center justify-center text-2xl font-semibold shadow">
           공지 및 광고
@@ -67,45 +66,7 @@ export default function HomePage() {
         </div>
       </main>
       {/* 하단 내비게이션 */}
-      <nav className="fixed bottom-0 left-0 w-full h-16 bg-white border-t flex justify-around items-center">
-        <NavItem href="/" label="홈" icon={<FiHome size={24} />} />
-        <NavItem
-          href="/shop"
-          label="장보기·쇼핑"
-          icon={<GiHamburgerMenu size={24} />}
-        />
-        <NavItem href="/favorites" label="찜" icon={<FcLike size={24} />} />
-        <NavItem
-          href="/orders"
-          label="주문내역"
-          icon={<FcAssistant size={24} />}
-        />
-        <NavItem
-          href="/mypage"
-          label="마이페이지"
-          icon={<GiHamburgerMenu size={24} />}
-        />
-      </nav>
+      <NavigationBar />
     </div>
-  )
-}
-
-// 하단 내비게이션 아이템 컴포넌트
-interface NavItemProps {
-  href: string
-  label: string
-  icon: ReactNode
-}
-
-function NavItem({ href, label, icon }: Readonly<NavItemProps>) {
-  // (active 로직 추가 가능)
-  return (
-    <Link
-      href={href}
-      className="flex flex-col items-center text-gray-500 hover:text-blue-500"
-    >
-      {icon}
-      <span className="text-xs mt-1">{label}</span>
-    </Link>
   )
 }

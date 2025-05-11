@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Header />
         <MobileHeader />
-        <div className={'pt-13 sm:pt-20 lg:pt-20 xl:pt-20'}>{children}</div>
+        <div className={'pt-13 sm:pt-20 lg:pt-20 xl:pt-20 '}>{children}</div>
       </body>
     </html>
   )
