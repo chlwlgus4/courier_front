@@ -13,7 +13,7 @@ const NavigationBar = () => {
       <NavItem href="/" label="홈" icon={<FiHome size={24} />} />
       <NavItem
         href="/shop"
-        label="장보기·쇼핑"
+        label="견적요청"
         icon={<GiHamburgerMenu size={24} />}
       />
       <NavItem href="/favorites" label="찜" icon={<FcLike size={24} />} />

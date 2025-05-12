@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import React from 'react'
 import Header from '@/components/common/Header'
 import MobileHeader from '@/components/common/MobileHeader'
+import NavigationBar from '@/components/common/NavigationBar'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,7 +31,12 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Header />
         <MobileHeader />
-        <div className={'pt-13 sm:pt-20 lg:pt-20 xl:pt-20 '}>{children}</div>
+        <div className={'sm:pt-20 lg:pt-20 xl:pt-20 '}>
+          <main className="flex-1 overflow-auto scrollbar-hide px-4 py-3">
+            {children}
+          </main>
+          <NavigationBar />
+        </div>
       </body>
     </html>
   )
