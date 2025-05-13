@@ -14,7 +14,7 @@ import {
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="flex-1 overflow-auto scrollbar-hide px-4 py-3 rounded-t-md">
       {/* 공지/광고 배너 */}
       <div className="bg-blue-400 text-white rounded-xl h-36 flex items-center justify-center text-2xl font-semibold shadow">
         공지 및 광고
@@ -43,9 +43,9 @@ const HomePage = () => {
       <div className="mt-6 overflow-x-auto">
         <div className="flex space-x-4">
           {[
-            { icon: <FcBullish size={28} />, label: '장보기' },
-            { icon: <FcAssistant size={28} />, label: '한식' },
-            { icon: <FcLike size={28} />, label: '디저트' },
+            { icon: <FcBullish size={28} />, label: '광고 업체1' },
+            { icon: <FcAssistant size={28} />, label: '광고 업체2' },
+            { icon: <FcLike size={28} />, label: '광고 업체3' },
             // 필요에 따라 추가…
           ].map((item) => (
             <div

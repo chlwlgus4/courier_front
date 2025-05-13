@@ -32,9 +32,7 @@ export default function RootLayout({
         <Header />
         <MobileHeader />
         <div className={'sm:pt-20 lg:pt-20 xl:pt-20 '}>
-          <main className="flex-1 overflow-auto scrollbar-hide px-4 py-3">
-            {children}
-          </main>
+          <main>{children}</main>
           <NavigationBar />
         </div>
       </body>
