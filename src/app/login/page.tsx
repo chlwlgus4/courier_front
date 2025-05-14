@@ -1,12 +1,11 @@
 // src/app/login/page.tsx
 'use client'
 
-import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FcGoogle } from 'react-icons/fc'
-import { AuthForm } from '@/components/AuthForm'
-import API from '@/lib/api'
+import { login } from '@/api/auth'
+import { AuthForm } from '@/components/auth/AuthForm'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -18,13 +17,8 @@ export default function LoginPage() {
     username: string
     password: string
   }) => {
-    try {
-      const res = await API.post('/api/user/login', { username, password })
-      Cookies.set('jwt', res.data, { expires: 1 })
-      router.replace('/')
-    } catch {
-      alert('로그인 실패: 아이디/비밀번호를 확인해주세요.')
-    }
+    const data = await login(username, password)
+    if (data) router.replace('/')
   }
 
   return (

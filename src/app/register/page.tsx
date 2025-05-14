@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { AuthForm } from '@/components/AuthForm'
+import { AuthForm } from '@/components/auth/AuthForm'
 import API from '@/lib/api'
 
 export default function RegisterPage() {
