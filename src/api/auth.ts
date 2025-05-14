@@ -1,5 +1,6 @@
 import { setTokens, TokenResponse } from '@/lib/api'
 import { apiPost } from '@/lib/fetcher'
+import { useAuthStore } from '@/store/authStore'
 
 /**
  * 로그인
@@ -39,5 +40,5 @@ export async function register(
   })
 
   // 토큰 저장
-  if (data) setTokens(data)
+  if (data) useAuthStore.getState().setAccessToken(data.accessToken)
 }

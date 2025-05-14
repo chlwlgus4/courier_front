@@ -7,7 +7,7 @@ interface ErrorDTO {
   path: string
 }
 
-export async function apiPost<T>(url: string, body: any): Promise<T | null> {
+export async function apiPost<T>(url: string, body?: any): Promise<T | null> {
   try {
     const { data } = await API.post<T>(url, body)
     return data

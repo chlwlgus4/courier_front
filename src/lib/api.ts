@@ -1,6 +1,7 @@
 // lib/api.ts
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
-import Cookies from 'js-cookie'
+import { apiPost } from '@/lib/fetcher'
+import { useAuthStore } from '@/store/authStore'
 
 export interface TokenResponse {
   tokenType: string
@@ -19,21 +20,14 @@ const API = axios.create({
 
 // — 로그인 후 호출할 토큰 저장 유틸 —
 export function setTokens(data: TokenResponse) {
-  const { tokenType, accessToken, refreshToken } = data
-  Cookies.set('accessToken', accessToken, { expires: 1 / 24 })
-  Cookies.set('refreshToken', refreshToken, { expires: 7 })
+  const { tokenType, accessToken } = data
+  useAuthStore.getState().setAccessToken(accessToken)
   API.defaults.headers.common['Authorization'] = `${tokenType} ${accessToken}`
-}
-
-// — 페이지 로드 시 초기 헤더 세팅 —
-const initToken = Cookies.get('accessToken')
-if (initToken) {
-  API.defaults.headers.common['Authorization'] = `Bearer ${initToken}`
 }
 
 // — 요청 인터셉터: 항상 최신 accessToken 사용 —
 API.interceptors.request.use((config) => {
-  const token = Cookies.get('accessToken')
+  const token = useAuthStore.getState().accessToken
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`
   }
@@ -88,21 +82,14 @@ API.interceptors.response.use(
       // 아직 refresh 중이 아니면 진행
       isRefreshing = true
       try {
-        const refreshToken = Cookies.get('refreshToken')
-        if (!refreshToken) {
-          throw new Error('No refresh token')
-        }
-
         // refresh API 호출
-        const { data } = await API.post<TokenResponse>('/api/auth/refresh', {
-          refreshToken,
-        })
+        const data = await apiPost<TokenResponse>('/api/auth/refresh')
+        if (!data) return Promise.reject(error)
 
         const bearer = `${data.tokenType} ${data.accessToken}`
 
         // 토큰·헤더·쿠키 모두 갱신
-        Cookies.set('accessToken', data.accessToken, { expires: 1 })
-        Cookies.set('refreshToken', data.refreshToken, { expires: 7 })
+        setTokens(data)
         API.defaults.headers.common['Authorization'] = bearer
 
         // 큐에 대기 중인 요청 풀기
@@ -114,8 +101,7 @@ API.interceptors.response.use(
       } catch (err) {
         // refresh 실패 시 큐까지 에러 반환하고 로그인 페이지로
         processQueue(err, null)
-        Cookies.remove('accessToken')
-        Cookies.remove('refreshToken')
+        useAuthStore.getState().setAccessToken('')
         window.location.href = '/login'
         return Promise.reject(err as AxiosError)
       } finally {
