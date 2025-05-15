@@ -23,14 +23,18 @@ const HomePage = () => {
       {/* 2×2 메뉴 그리드 */}
       <div className="grid grid-cols-2 gap-4 mt-4">
         {[
-          { icon: <FcGlobe size={32} />, label: '해외배송' },
-          { icon: <FcShop size={32} />, label: '구매대행' },
-          { icon: <FcExport size={32} />, label: '배송대행' },
-          { icon: <FcHome size={32} />, label: '배대지' },
+          { icon: <FcGlobe size={32} />, label: '해외배송', path: 'overseas' },
+          { icon: <FcShop size={32} />, label: '구매대행', path: 'purchase' },
+          {
+            icon: <FcExport size={32} />,
+            label: '배송대행',
+            path: 'forwarding',
+          },
+          { icon: <FcHome size={32} />, label: '배대지', path: 'warehouse' },
         ].map((item) => (
           <Link
             key={item.label}
-            href={`/service/${item.label}`}
+            href={`/services?category=${item.path}`}
             className="bg-blue-400 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
           >
             {item.icon}

@@ -1,11 +1,10 @@
-// src/app/login/page.tsx
 'use client'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FcGoogle } from 'react-icons/fc'
 import { login } from '@/api/auth'
-import { AuthForm } from '@/components/auth/AuthForm'
+import { AuthForm } from '@/commons/components/auth/AuthForm'
 
 export default function LoginPage() {
   const router = useRouter()

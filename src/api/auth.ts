@@ -1,4 +1,5 @@
-import { setTokens, TokenResponse } from '@/lib/api'
+import { AuthResponse } from '@/commons/types'
+import { setTokens } from '@/lib/api'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
 
@@ -11,8 +12,8 @@ import { useAuthStore } from '@/store/authStore'
 export async function login(
   username: string,
   password: string,
-): Promise<TokenResponse | null> {
-  const data = await apiPost<TokenResponse>('/api/auth/login', {
+): Promise<AuthResponse | null> {
+  const data = await apiPost<AuthResponse>('/api/auth/login', {
     username,
     password,
   })
@@ -34,11 +35,11 @@ export async function register(
   password: string,
 ): Promise<void> {
   // 회원가입 엔드포인트 호출
-  const data = await apiPost<TokenResponse>('/api/auth/register', {
+  const data = await apiPost<AuthResponse>('/api/auth/register', {
     username,
     password,
   })
 
   // 토큰 저장
-  if (data) useAuthStore.getState().setAccessToken(data.accessToken)
+  if (data) useAuthStore.getState().setAccessToken(data.accessToken, data.user)
 }

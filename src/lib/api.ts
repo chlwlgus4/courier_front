@@ -2,12 +2,7 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
-
-export interface TokenResponse {
-  tokenType: string
-  accessToken: string
-  refreshToken: string
-}
+import { AuthResponse } from '@/types'
 
 interface RetryableRequestConfig extends AxiosRequestConfig {
   _retry?: boolean
@@ -19,10 +14,10 @@ const API = axios.create({
 })
 
 // — 로그인 후 호출할 토큰 저장 유틸 —
-export function setTokens(data: TokenResponse) {
-  const { tokenType, accessToken } = data
-  useAuthStore.getState().setAccessToken(accessToken)
-  API.defaults.headers.common['Authorization'] = `${tokenType} ${accessToken}`
+export function setTokens(data: AuthResponse) {
+  const { accessToken, user } = data
+  useAuthStore.getState().setAccessToken(accessToken, user)
+  API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
 }
 
 // — 요청 인터셉터: 항상 최신 accessToken 사용 —
@@ -83,10 +78,10 @@ API.interceptors.response.use(
       isRefreshing = true
       try {
         // refresh API 호출
-        const data = await apiPost<TokenResponse>('/api/auth/refresh')
+        const data = await apiPost<AuthResponse>('/api/auth/refresh')
         if (!data) return Promise.reject(error)
 
-        const bearer = `${data.tokenType} ${data.accessToken}`
+        const bearer = `Bearer ${data.accessToken}`
 
         // 토큰·헤더·쿠키 모두 갱신
         setTokens(data)
@@ -101,7 +96,7 @@ API.interceptors.response.use(
       } catch (err) {
         // refresh 실패 시 큐까지 에러 반환하고 로그인 페이지로
         processQueue(err, null)
-        useAuthStore.getState().setAccessToken('')
+        useAuthStore.getState().clearAuth()
         window.location.href = '/login'
         return Promise.reject(err as AxiosError)
       } finally {

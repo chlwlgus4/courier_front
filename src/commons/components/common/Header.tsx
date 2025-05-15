@@ -46,7 +46,7 @@ export default function Header() {
             </button>
           )}
           <h1 className="text-xl font-bold">
-            <Link href={'/'}>쿠리어</Link>
+            <Link href={'/public'}>쿠리어</Link>
           </h1>
         </div>
 
