@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import BackgroundLayout from '@/commons/components/common/BackgroundLayout'
 import Header from '@/commons/components/common/Header'
 import MobileHeader from '@/commons/components/common/MobileHeader'
 import NavigationBar from '@/commons/components/common/NavigationBar'
@@ -29,12 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <MobileHeader />
-        <div className={'sm:pt-20 lg:pt-20 xl:pt-20 '}>
-          <main>{children}</main>
-          <NavigationBar />
-        </div>
+        <BackgroundLayout>
+          <Header />
+          <MobileHeader />
+          <div className={'sm:pt-20 lg:pt-20 xl:pt-20 '}>
+            <main>{children}</main>
+            <NavigationBar />
+          </div>
+        </BackgroundLayout>
       </body>
     </html>
   )
