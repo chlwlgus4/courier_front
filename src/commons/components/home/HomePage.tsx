@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <div className="flex-1 overflow-auto scrollbar-hide px-4 py-3 rounded-t-xl bg-white">
       {/* 공지/광고 배너 */}
-      <div className="bg-blue-400 text-white rounded-xl h-36 flex items-center justify-center text-2xl font-semibold shadow">
+      <div className="bg-cyan-950 text-white rounded-xl h-36 flex items-center justify-center text-2xl font-semibold shadow">
         공지 및 광고
       </div>
 
@@ -35,7 +35,7 @@ const HomePage = () => {
           <Link
             key={item.label}
             href={`/services?category=${item.path}`}
-            className="bg-blue-400 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
+            className="bg-cyan-950 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
           >
             {item.icon}
             <span className="mt-2 font-medium">{item.label}</span>
