@@ -1,15 +1,15 @@
 // lib/api.ts
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
+import { AuthResponse } from '@/commons/types'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
-import { AuthResponse } from '@/types'
 
 interface RetryableRequestConfig extends AxiosRequestConfig {
   _retry?: boolean
 }
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + '/api',
   withCredentials: true,
 })
 
@@ -45,11 +45,7 @@ const processQueue = (err: any, token: string | null = null) => {
 }
 
 // 401 발생 시 refresh 대상에서 제외할 경로
-const EXCLUDED_PATHS = [
-  '/api/auth/login',
-  '/api/auth/register',
-  '/api/auth/refresh',
-]
+const EXCLUDED_PATHS = ['/auth/login', '/auth/register', '/auth/refresh']
 
 API.interceptors.response.use(
   (res) => res,
@@ -78,7 +74,7 @@ API.interceptors.response.use(
       isRefreshing = true
       try {
         // refresh API 호출
-        const data = await apiPost<AuthResponse>('/api/auth/refresh')
+        const data = await apiPost<AuthResponse>('/auth/refresh')
         if (!data) return Promise.reject(error)
 
         const bearer = `Bearer ${data.accessToken}`

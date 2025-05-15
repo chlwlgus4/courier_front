@@ -13,7 +13,7 @@ export async function login(
   username: string,
   password: string,
 ): Promise<AuthResponse | null> {
-  const data = await apiPost<AuthResponse>('/api/auth/login', {
+  const data = await apiPost<AuthResponse>('/auth/login', {
     username,
     password,
   })
@@ -35,7 +35,7 @@ export async function register(
   password: string,
 ): Promise<void> {
   // 회원가입 엔드포인트 호출
-  const data = await apiPost<AuthResponse>('/api/auth/register', {
+  const data = await apiPost<AuthResponse>('/auth/register', {
     username,
     password,
   })
