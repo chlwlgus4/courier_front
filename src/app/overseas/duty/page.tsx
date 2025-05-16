@@ -7,7 +7,7 @@ export default function DutyPage() {
   const country = params.get('country')
   const router = useRouter()
   const onAgree = () => {
-    router.push(`/overseas/shipping-form?country=${country}`)
+    router.push(`/overseas/shipping?country=${country}`)
   }
 
   return (
