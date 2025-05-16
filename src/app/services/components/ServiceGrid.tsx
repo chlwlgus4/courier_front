@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { ReactNode } from 'react'
 import { FcGlobe, FcShop, FcExport, FcHome } from 'react-icons/fc'
 import { Category, GridProps } from '@/commons/types'
@@ -32,17 +33,29 @@ const config: Record<
 }
 
 const ServiceGrid = ({ category }: Readonly<GridProps>) => {
-  const item = config[category]
+  // const item = config[category]
+  const router = useRouter()
   return (
-    <div className="grid grid-cols-2 gap-4 mt-4">
-      <Link
-        href={item.href}
-        className="bg-blue-400 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
-      >
-        {item.icon}
-        <span className="mt-2 font-medium">{item.label}</span>
-      </Link>
-      {/* 필요하다면 하위 다른 카드들 추가 */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
+      {[...Array(10)].map((_, i) => (
+        <div
+          key={i}
+          className="bg-white rounded-xl shadow-md border border-gray-200 p-6 flex flex-col justify-between h-full hover:shadow-lg transition-shadow"
+        >
+          <div>
+            <h3 className="text-base font-bold mb-2">
+              [제목] 판매글 제목 {i + 1}
+            </h3>
+            <p className="text-sm text-gray-600">판매 내용</p>
+          </div>
+          <button
+            className="mt-4 w-full h-10 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base rounded-md font-semibold transition-colors"
+            onClick={() => router.push('/post/1')}
+          >
+            매칭 요청
+          </button>
+        </div>
+      ))}
     </div>
   )
 }

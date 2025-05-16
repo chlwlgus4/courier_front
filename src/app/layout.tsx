@@ -35,7 +35,7 @@ export default function RootLayout({
           <Header />
           <MobileHeader />
           <div className={'sm:pt-20 lg:pt-20 xl:pt-20 '}>
-            <main>{children}</main>
+            <main className={'mb-20'}>{children}</main>
             <NavigationBar />
           </div>
         </BackgroundLayout>
