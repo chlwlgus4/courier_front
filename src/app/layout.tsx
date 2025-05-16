@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 import BackgroundLayout from '@/commons/components/common/BackgroundLayout'
 import Header from '@/commons/components/common/Header'

@@ -23,7 +23,7 @@ export function AuthForm({
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-md mx-auto mt-20 p-8 bg-white rounded-2xl shadow-lg">
+      <div className="w-full md:max-w-md mx-auto mt-20 p-8 bg-white rounded-2xl md:shadow-lg">
         <h1 className="text-2xl font-semibold text-center mb-2">{title}</h1>
         <p className="text-center text-gray-500 mb-6">{description}</p>
         <form
