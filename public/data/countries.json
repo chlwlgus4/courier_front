@@ -1,0 +1,17 @@
+[
+  { "code": "KR", "name": "대한민국" },
+  { "code": "US", "name": "미국" },
+  { "code": "CN", "name": "중국" },
+  { "code": "JP", "name": "일본" },
+  { "code": "DE", "name": "독일" },
+  { "code": "FR", "name": "프랑스" },
+  { "code": "GB", "name": "영국" },
+  { "code": "CA", "name": "캐나다" },
+  { "code": "AU", "name": "호주" },
+  { "code": "SG", "name": "싱가포르" },
+  { "code": "VN", "name": "베트남" },
+  { "code": "TH", "name": "태국" },
+  { "code": "IN", "name": "인도" },
+  { "code": "RU", "name": "러시아" },
+  { "code": "BR", "name": "브라질" }
+]

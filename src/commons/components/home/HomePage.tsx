@@ -34,7 +34,7 @@ const HomePage = () => {
         ].map((item) => (
           <Link
             key={item.label}
-            href={`/services?category=${item.path}`}
+            href={`/${item.path}/country`}
             className="bg-cyan-950 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
           >
             {item.icon}
