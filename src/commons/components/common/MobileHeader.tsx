@@ -30,7 +30,7 @@ const MobileHeader = () => {
       )}
     >
       <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
-        <Link href={'/public'} className="font-bold text-lg text-white">
+        <Link href={'/'} className="font-bold text-lg text-white">
           쿠리어
         </Link>
         {/*<div className="font-bold text-lg">쿠리어</div>*/}
