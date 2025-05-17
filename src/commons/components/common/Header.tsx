@@ -14,14 +14,16 @@ export default function Header() {
     setShowBack(pathname !== '/' && pathname !== '/home')
   }, [pathname])
 
+  if (pathname === '/') return null
+
   const hideHeaderPaths = ['/login', '/register']
   const shouldHideHeader = hideHeaderPaths.includes(pathname)
   // 로그인, 회원가입 페이지는 헤더 표시 안함
   if (shouldHideHeader) return null
 
   return (
-    <header className="hidden md:block fixed top-0 left-0 right-0 z-30 bg-white shadow">
-      <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 py-4 sm:py-6 flex justify-between items-center">
+    <header className="top-0 left-0 right-0 z-30 bg-white shadow">
+      <div className="max-w-screen-2xl px-6 sm:px-8 py-4 sm:py-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           {/* 모바일 뒤로가기 버튼 */}
           {showBack && (
@@ -46,7 +48,7 @@ export default function Header() {
             </button>
           )}
           <h1 className="text-xl font-bold">
-            <Link href={'/public'}>쿠리어</Link>
+            <Link href={'/'}>쿠리어</Link>
           </h1>
         </div>
 

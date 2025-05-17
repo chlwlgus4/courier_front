@@ -1,61 +1,112 @@
 'use client'
 
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { FiUpload, FiArrowLeft } from 'react-icons/fi'
+import ImageSwiper from '@/app/overseas/components/ImageSwiper'
 
 export default function ShippingPage() {
   const router = useRouter()
-  const [file, setFile] = useState<File | null>(null)
+  const [weight, setWeight] = useState('') // ← 무게 상태 추가
+  const [images, setImages] = useState<File[]>([])
   const [notes, setNotes] = useState('')
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0])
+    if (!e.target.files) return
+
+    const selected = Array.from(e.target.files)
+    const availableSlots = 5 - images.length
+
+    if (availableSlots <= 0) {
+      alert('최대 5개까지 업로드할 수 있습니다.')
+      return
     }
+
+    const toAdd = selected.slice(0, availableSlots)
+    if (selected.length > availableSlots) {
+      alert(
+        `최대 5개까지 업로드 가능하며, 앞에서부터 ${toAdd.length}개만 추가됩니다.`,
+      )
+    }
+
+    setImages((prev) => [...prev, ...toAdd])
+    e.target.value = ''
+  }
+
+  const removeImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: 파일 업로드 및 매칭 요청 API 호출
-    console.log('파일:', file)
+    if (!weight) {
+      alert('무게를 입력해주세요.')
+      return
+    }
+
+    // TODO: 파일 업로드, weight, notes 함께 API 호출
+    console.log('무게:', weight, 'kg')
+    console.log('파일:', images)
     console.log('추가 메모:', notes)
-    // 매칭 완료 후 목록 페이지로
+
     router.push('/overseas/result')
   }
 
   return (
     <div className="px-4 py-6">
-      <Link
-        href="/overseas"
-        className="inline-flex items-center text-gray-600 hover:text-gray-800 mb-4"
-      >
-        <FiArrowLeft className="w-5 h-5 mr-1" />
-        뒤로
-      </Link>
       <h1 className="text-2xl font-bold mb-4">배송대행 신청</h1>
       <form
         onSubmit={handleSubmit}
         className="space-y-6 bg-white p-6 rounded-xl shadow"
       >
+        {/* 1. 무게 입력 */}
+        <div>
+          <label
+            htmlFor="weight"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            총 무게(kg)
+          </label>
+          <input
+            id="weight"
+            type="number"
+            step="0.1"
+            min="0"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="예: 2.5"
+            required
+          />
+        </div>
+
+        {/* 2. 사진 업로드 */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            주문 사진 업로드
+            주문 사진 업로드 (최대 5개)
           </label>
           <div className="flex items-center">
             <input
+              id="image-upload"
               type="file"
               accept="image/*"
+              multiple
               onChange={handleFileChange}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 \
-                file:rounded-lg file:border-0 \
-                file:text-sm file:font-semibold \
-                file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              className="sr-only"
+              disabled={images.length >= 5}
             />
-            {file && <FiUpload className="w-6 h-6 text-blue-500 ml-2" />}
+            <label
+              htmlFor="image-upload"
+              className="inline-block py-2 px-4 bg-blue-50 text-blue-700 rounded-lg cursor-pointer hover:bg-blue-100 transition mb-4"
+            >
+              파일 선택
+            </label>
           </div>
+          {images.length > 0 && (
+            <ImageSwiper images={images} removeImage={removeImage} />
+          )}
         </div>
+
+        {/* 3. 추가 요청사항 */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             추가 요청사항
@@ -64,14 +115,16 @@ export default function ShippingPage() {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             rows={4}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
             placeholder="특이사항이 있으시면 입력하세요"
           />
         </div>
+
+        {/* 4. 제출 버튼 */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium shadow-sm hover:bg-blue-700 transition"
-          disabled={!file}
+          disabled={!images.length}
         >
           신청하기
         </button>

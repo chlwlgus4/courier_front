@@ -9,8 +9,7 @@ import { SearchBar } from '@/commons/components/common/SearchBar'
 const MobileHeader = () => {
   const path = usePathname()
 
-  let bgClass = ''
-  if (path !== '/') bgClass = 'bg-cyan-950'
+  if (path !== '/') return null
 
   const hideHeaderPaths = ['/login', '/register']
   const shouldHideHeader = hideHeaderPaths.includes(path)
@@ -18,17 +17,7 @@ const MobileHeader = () => {
   if (shouldHideHeader) return null
 
   return (
-    <header
-      className={clsx(
-        bgClass,
-        'block md:hidden',
-        'z-30',
-        'w-full',
-        'px-4',
-        'py-3',
-        'h-40',
-      )}
-    >
+    <header className={clsx('z-30', 'w-full', 'px-4', 'py-3', 'h-40')}>
       <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
         <Link href={'/'} className="font-bold text-lg text-white">
           쿠리어
