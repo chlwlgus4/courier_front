@@ -3,9 +3,9 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { ReactNode } from 'react'
+import { AiFillCalculator } from 'react-icons/ai'
 import { FcLike } from 'react-icons/fc'
 import { FiHome, FiUser } from 'react-icons/fi'
-import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdReceiptLong } from 'react-icons/md'
 
 const NavigationBar = () => {
@@ -20,9 +20,9 @@ const NavigationBar = () => {
     <nav className="fixed bottom-0 left-0 w-full h-16 bg-white flex justify-around items-center">
       <NavItem href="/" label="홈" icon={<FiHome size={24} />} />
       <NavItem
-        href="/shop"
-        label="견적요청"
-        icon={<GiHamburgerMenu size={24} />}
+        href="/cost-calculator"
+        label="해외배송비 계산"
+        icon={<AiFillCalculator size={24} />}
       />
       <NavItem href="/favorites" label="찜" icon={<FcLike size={24} />} />
       <NavItem

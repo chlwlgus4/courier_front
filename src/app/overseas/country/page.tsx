@@ -3,10 +3,14 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import CountrySelect from '@/app/overseas/components/CountrySelect'
+import useRequireAuth from '@/hook/useRequireAuth'
 
 const Page = () => {
   const router = useRouter()
   const [country, setCountry] = useState<string>('')
+
+  const { user } = useRequireAuth()
+  if (!user) return null
 
   const handleNext = () => {
     if (!country) return
