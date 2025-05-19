@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { overseasStore } from '@/store/overseasStore'
 
@@ -64,7 +65,7 @@ const ServicesResultPage = () => {
               key={c.id}
               className="flex items-center bg-white p-4 rounded-xl shadow"
             >
-              <img
+              <Image
                 src={c.logoUrl}
                 alt={c.name}
                 className="w-12 h-12 object-contain mr-4"
