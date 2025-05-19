@@ -7,7 +7,7 @@ import { overseasStore } from '@/store/overseasStore'
 
 export default function ShippingPage() {
   const router = useRouter()
-  const [weight, setWeight] = useState<number>() // ← 무게 상태 추가
+  const [weight, setWeight] = useState<string>() // ← 무게 상태 추가
   const [images, setImages] = useState<File[]>([])
   const [notes, setNotes] = useState('')
 
@@ -51,7 +51,7 @@ export default function ShippingPage() {
     console.log('파일:', images)
     console.log('추가 메모:', notes)
 
-    setOverseas({ ...overseas, images, notes, weight })
+    setOverseas({ ...overseas, images, notes, weight: Number(weight) })
 
     router.push('/overseas/result')
   }
@@ -76,7 +76,7 @@ export default function ShippingPage() {
             step="0.1"
             min="0"
             value={weight}
-            onChange={(e) => setWeight(Number(e.target.value))}
+            onChange={(e) => setWeight(e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="예: 2.5"
             required
