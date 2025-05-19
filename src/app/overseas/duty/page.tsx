@@ -1,11 +1,21 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import DutyContent from '@/app/overseas/components/DutyContent'
-import { DutyPageProps } from '@/commons/types'
+import { overseasStore } from '@/store/overseasStore'
 
-const DutyPage = async ({ searchParams }: DutyPageProps) => {
-  const params = await searchParams
-  const country = (params.country as string) ?? ''
+const DutyPage = () => {
+  const { overseas } = overseasStore()
+  const router = useRouter()
 
-  return <DutyContent country={country} />
+  useEffect(() => {
+    if (!overseas?.country) router.back()
+  }, [overseas, router])
+
+  if (!overseas?.country) return null
+
+  return <DutyContent country={overseas?.country} />
 }
 
 export default DutyPage

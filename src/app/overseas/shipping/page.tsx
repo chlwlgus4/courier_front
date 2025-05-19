@@ -53,7 +53,6 @@ export default function ShippingPage() {
 
   return (
     <div className="px-4 py-6">
-      <h1 className="text-2xl font-bold mb-4">배송대행 신청</h1>
       <form
         onSubmit={handleSubmit}
         className="space-y-6 bg-white p-6 rounded-xl shadow"

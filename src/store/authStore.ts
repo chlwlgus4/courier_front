@@ -1,12 +1,5 @@
 import { create } from 'zustand'
-import { User } from '@/commons/types'
-
-interface AuthState {
-  accessToken: string | null
-  user: User | null
-  setAccessToken: (token: string, user: User) => void
-  clearAuth: () => void
-}
+import { AuthState } from '@/commons/types'
 
 export const useAuthStore = create<AuthState>((set) => ({
   accessToken: null,

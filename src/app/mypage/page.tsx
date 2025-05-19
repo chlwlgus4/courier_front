@@ -74,7 +74,8 @@ const Page = () => {
       </div>
       <div className="bg-white p-4 rounded-xl shadow flex items-center justify-between">
         <span className="font-medium">
-          총 <span className="text-indigo-600">151,580원</span> 절약했어요!
+          총 <span className="text-indigo-600 font-bold">151,580원</span>{' '}
+          절약했어요!
         </span>
         <Link href="/promo" className="text-indigo-600 font-medium">
           자세히 보기 &gt;
@@ -109,17 +110,13 @@ const Page = () => {
                 href={link.href}
                 className="flex flex-col items-center space-y-1"
               >
-                <div className="text-indigo-600">{link.icon}</div>
+                <div className="text-stone-600">{link.icon}</div>
                 <span className="text-xs text-gray-700">{link.label}</span>
               </Link>
             </li>
           ))}
         </ul>
       </div>
-
-      {/*<ProfileInfo />*/}
-      {/*<OrderHistory />*/}
-      {/*<Settings />*/}
 
       <div className="bg-white rounded-xl shadow">
         <ul>
@@ -168,7 +165,7 @@ const Page = () => {
       <div className="pt-4 border-t border-gray-300">
         <Link
           href="/faq"
-          className="inline-block text-blue-600 hover:underline font-medium"
+          className="inline-block text-blue-600 hover:underline font-normal"
         >
           자주 묻는 질문(FAQ) 보러가기
         </Link>

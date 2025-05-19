@@ -10,7 +10,6 @@ const DutyContent = ({ country }: { country: string }) => {
 
   return (
     <div className="px-4 py-6 space-y-4">
-      <h1 className="text-xl font-semibold">관세 및 주의사항</h1>
       <div className="bg-gray-100 p-4 rounded-lg">
         {/* 서버에서 불러온 국가별 주의사항 */}
         {/* 예: 관세율, 금지 물품 등 */}

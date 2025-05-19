@@ -1,6 +1,5 @@
 'use client'
 
-import Head from 'next/head'
 import React, { useState } from 'react'
 
 // 샘플 국가별 기본요금(base) 및 kg당 요금(perKg)
@@ -49,15 +48,7 @@ export default function CostCalculatorPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
-      <Head>
-        <title>해외 배송비 계산기</title>
-      </Head>
       <div className="max-w-md mx-auto bg-white p-6 rounded-2xl shadow">
-        <h1 className="text-2xl font-semibold text-center mb-4">
-          해외 배송비 계산기
-        </h1>
-
-        {/* 국가 선택 */}
         <div className="mb-4">
           <label
             htmlFor="country"

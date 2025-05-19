@@ -1,7 +1,9 @@
 'use client'
+
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { PAGE_TITLES } from '@/config/pageTitle'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -20,6 +22,8 @@ export default function Header() {
   const shouldHideHeader = hideHeaderPaths.includes(pathname)
   // 로그인, 회원가입 페이지는 헤더 표시 안함
   if (shouldHideHeader) return null
+  console.log(pathname)
+  const pageTitle = PAGE_TITLES[pathname] ?? ''
 
   return (
     <header className="top-0 left-0 right-0 z-30 bg-white shadow">
@@ -36,7 +40,7 @@ export default function Header() {
                 className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
-                viewBox="0 0 24 24"
+                viewBox="0 0 20 20"
               >
                 <path
                   strokeLinecap="round"
@@ -47,10 +51,17 @@ export default function Header() {
               </svg>
             </button>
           )}
-          <h1 className="text-xl font-bold">
-            <Link href={'/'}>쿠리어</Link>
-          </h1>
+          {!showBack && (
+            <h1 className="text-xl font-bold">
+              <Link href={'/'}>쿠리어</Link>
+            </h1>
+          )}
         </div>
+        {pageTitle && (
+          <span className="md:hidden ml-3 text-xl font-bold text-gray-95000">
+            {pageTitle}
+          </span>
+        )}
 
         <nav className="hidden md:flex gap-6 text-sm font-medium">
           <Link href="/post" className="hover:text-blue-600">
