@@ -35,7 +35,7 @@ const faqs: FaqItem[] = [
   },
 ]
 
-export default function FAQPage() {
+const FAQPage = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggle = (idx: number) => setOpenIndex(openIndex === idx ? null : idx)
@@ -66,3 +66,5 @@ export default function FAQPage() {
     </div>
   )
 }
+
+export default FAQPage

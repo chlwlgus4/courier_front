@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
+import { overseasStore } from '@/store/overseasStore'
 
 // (임시) 매칭 결과 타입 정의
 interface CourierMatch {
@@ -11,7 +12,13 @@ interface CourierMatch {
   price: number
 }
 
-export default function ServicesResultPage() {
+const ServicesResultPage = () => {
+  const { overseas } = overseasStore()
+
+  useEffect(() => {
+    console.log(overseas)
+  }, [overseas])
+
   // TODO: 실제 API 호출로 대체
   const matches: CourierMatch[] = [
     {
@@ -85,3 +92,5 @@ export default function ServicesResultPage() {
     </div>
   )
 }
+
+export default ServicesResultPage

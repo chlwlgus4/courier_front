@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 const DutyContent = ({ country }: { country: string }) => {
   const router = useRouter()
   const onAgree = () => {
-    router.push(`/overseas/shipping?country=${country}`)
+    router.push(`/overseas/shipping`)
   }
 
   return (
