@@ -45,7 +45,7 @@ export default function FAQPage() {
       <h1 className="text-2xl font-bold text-center">자주 묻는 질문 (FAQ)</h1>
       <div className="space-y-2">
         {faqs.map((item, idx) => (
-          <div key={idx} className="border rounded-lg overflow-hidden">
+          <div key={idx} className="shadow rounded-lg overflow-hidden">
             <button
               onClick={() => toggle(idx)}
               className="w-full text-left px-4 py-3 bg-gray-100 hover:bg-gray-200 flex justify-between items-center"
@@ -54,7 +54,7 @@ export default function FAQPage() {
               <span className="text-xl">{openIndex === idx ? '−' : '+'}</span>
             </button>
             <div
-              className={`px-4 pb-4 transition-max-h duration-300 overflow-hidden ${
+              className={`px-4 transition-max-h duration-300 overflow-hidden ${
                 openIndex === idx ? 'max-h-40' : 'max-h-0'
               }`}
             >

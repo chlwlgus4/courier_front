@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
+  FiChevronRight,
   FiClock,
   FiCreditCard,
   FiGift,
@@ -11,10 +12,8 @@ import {
   FiPackage,
   FiSettings,
   FiStar,
+  FiUser,
 } from 'react-icons/fi'
-import OrderHistory from '@/app/mypage/components/OrderHistory'
-import ProfileInfo from '@/app/mypage/components/ProfileInfo'
-import Settings from '@/app/mypage/components/Settings'
 import useRequireAuth from '@/hook/useRequireAuth'
 import { useAuthStore } from '@/store/authStore'
 
@@ -62,11 +61,47 @@ const Page = () => {
 
   return (
     <div className="px-4 py-6 space-y-6">
-      <h1 className="text-2xl font-bold">마이페이지</h1>
-      <ProfileInfo />
-      <OrderHistory />
-      <Settings />
-      <div className="bg-white rounded-xl shadow p-4">
+      <div className="flex items-center space-x-4">
+        <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+          <FiUser className="text-3xl text-gray-400" />
+        </div>
+        <div>
+          <p className="text-lg font-semibold">{user.username} 님</p>
+          <Link href="/mypage/settings" className="text-sm text-gray-500">
+            프로필 관리 &gt;
+          </Link>
+        </div>
+      </div>
+      <div className="bg-white p-4 rounded-xl shadow flex items-center justify-between">
+        <span className="font-medium">
+          총 <span className="text-indigo-600">151,580원</span> 절약했어요!
+        </span>
+        <Link href="/promo" className="text-indigo-600 font-medium">
+          자세히 보기 &gt;
+        </Link>
+      </div>
+
+      <div className="bg-white rounded-xl shadow grid grid-cols-2">
+        <div className="p-4 text-center relative">
+          <p className="text-sm text-gray-500">쿠폰 캐시</p>
+          <p className="text-lg font-semibold">0원</p>
+          <div
+            className="
+            absolute
+            top-1/2 -translate-y-1/2
+            right-0
+            h-11/12
+            w-px
+            bg-gray-200"
+          />
+        </div>
+        <div className="p-4 text-center">
+          <p className="text-sm text-gray-500">머니</p>
+          <p className="text-lg font-semibold">0원</p>
+        </div>
+      </div>
+
+      <div className="bg-white p-4 rounded-xl shadow">
         <ul className="grid grid-cols-4 text-center gap-4">
           {quickLinks.map((link) => (
             <li key={link.label}>
@@ -81,32 +116,61 @@ const Page = () => {
           ))}
         </ul>
       </div>
-      <div className="bg-white rounded-xl shadow divide-y">
-        {menuItems.map((item) => (
-          <div
-            key={item.label}
-            className="flex items-center p-4 hover:bg-gray-50 cursor-pointer"
-            onClick={item.onClick}
-          >
-            {item.icon}
-            {item.href ? (
-              <Link href={item.href} className="flex-1 ml-3 text-gray-700">
-                {item.label}
-              </Link>
-            ) : (
-              <span className="flex-1 ml-3 text-gray-700">{item.label}</span>
-            )}
-            <span className="text-gray-400">&gt;</span>
-          </div>
-        ))}
-      </div>
 
-      <div className="pt-4 border-t">
+      {/*<ProfileInfo />*/}
+      {/*<OrderHistory />*/}
+      {/*<Settings />*/}
+
+      <div className="bg-white rounded-xl shadow">
+        <ul>
+          {menuItems?.map((item) => (
+            <li
+              key={item.label}
+              className="
+                relative
+                py-4
+                last:before:hidden
+                before:content-['']
+                before:absolute
+                before:left-1/2
+                before:-translate-x-1/2
+                before:bottom-0
+                before:w-11/12
+                before:h-[1px]
+                before:bg-gray-200
+              "
+            >
+              {item.href ? (
+                <Link href={item.href} className="flex items-center px-4">
+                  {item.icon}
+                  <span className="flex-1 ml-3 text-gray-700">
+                    {item.label}
+                  </span>
+                  <FiChevronRight className="text-gray-400" />
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={item.onClick}
+                  className="flex items-center w-full px-4 text-left"
+                >
+                  {item.icon}
+                  <span className="flex-1 ml-3 text-gray-700">
+                    {item.label}
+                  </span>
+                  <FiChevronRight className="text-gray-400" />
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="pt-4 border-t border-gray-300">
         <Link
           href="/faq"
           className="inline-block text-blue-600 hover:underline font-medium"
         >
-          ❓ 자주 묻는 질문(FAQ) 보러가기
+          자주 묻는 질문(FAQ) 보러가기
         </Link>
       </div>
     </div>
