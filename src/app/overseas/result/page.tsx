@@ -46,8 +46,6 @@ const ServicesResultPage = () => {
 
   return (
     <div className="px-4 py-6 space-y-6">
-      <h1 className="text-2xl font-bold">매칭 결과</h1>
-
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">주문 정보</h2>
         <div className="bg-white p-4 rounded-xl shadow">
