@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import React from 'react'
+import AuthProvider from '@/commons/components/auth/AuthProvider'
 import BackgroundLayout from '@/commons/components/common/BackgroundLayout'
 import Header from '@/commons/components/common/Header'
 import MobileHeader from '@/commons/components/common/MobileHeader'
@@ -33,10 +34,12 @@ export default function RootLayout({
         <BackgroundLayout>
           <Header />
           <MobileHeader />
-          <div className={'sm:pt-20 lg:pt-20 xl:pt-20 '}>
-            <main className={'mb-20'}>{children}</main>
-            <NavigationBar />
-          </div>
+          <AuthProvider>
+            <div className={''}>
+              <main className={'mb-20'}>{children}</main>
+              <NavigationBar />
+            </div>
+          </AuthProvider>
         </BackgroundLayout>
       </body>
     </html>
