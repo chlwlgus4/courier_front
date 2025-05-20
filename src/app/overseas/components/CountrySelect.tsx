@@ -5,9 +5,10 @@ import { Country } from '@/app/overseas/types/country'
 import { overseasStore } from '@/store/overseasStore'
 
 export default function CountrySelect() {
-  const [country, setCountry] = useState<string>('')
-  const [countries, setCountries] = useState<Country[]>([])
   const { overseas, setOverseas } = overseasStore()
+
+  const [country, setCountry] = useState<string>(overseas?.country as string)
+  const [countries, setCountries] = useState<Country[]>([])
 
   useEffect(() => {
     if (overseas?.country === country) return

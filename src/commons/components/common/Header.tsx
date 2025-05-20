@@ -26,7 +26,7 @@ export default function Header() {
 
   return (
     <header className="top-0 left-0 right-0 z-30 bg-white shadow">
-      <div className="max-w-screen-2xl px-6 sm:px-8 py-4 sm:py-6 flex justify-between items-center">
+      <div className="px-6 sm:px-8 py-4 sm:py-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           {/* 모바일 뒤로가기 버튼 */}
           {showBack && (
@@ -50,11 +50,9 @@ export default function Header() {
               </svg>
             </button>
           )}
-          {!showBack && (
-            <h1 className="text-xl font-bold">
-              <Link href={'/'}>쿠리어</Link>
-            </h1>
-          )}
+          <h1 className="text-xl font-bold hidden md:block">
+            <Link href={'/'}>쿠리어</Link>
+          </h1>
         </div>
         {pageTitle && (
           <span className="md:hidden ml-3 text-xl font-bold text-gray-95000">

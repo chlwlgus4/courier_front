@@ -14,7 +14,6 @@ const Page = () => {
   const { overseas } = overseasStore()
 
   const handleNext = () => {
-    console.log(overseas)
     if (overseas?.country) router.push(`/overseas/duty`)
   }
 

@@ -11,12 +11,12 @@ interface AuthFormProps {
   children?: ReactNode // 추가 버튼(소셜로그인 등)
 }
 
-export function AuthForm({
+const LoginForm = ({
   title,
   description,
   onSubmit,
   children,
-}: Readonly<AuthFormProps>) {
+}: Readonly<AuthFormProps>) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
@@ -78,3 +78,5 @@ export function AuthForm({
     </div>
   )
 }
+
+export default LoginForm

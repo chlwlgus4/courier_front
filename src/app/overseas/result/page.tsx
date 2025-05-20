@@ -1,7 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
+import useRequireAuth from '@/hook/useRequireAuth'
 import { overseasStore } from '@/store/overseasStore'
 
 // (임시) 매칭 결과 타입 정의
@@ -13,12 +15,17 @@ interface CourierMatch {
   price: number
 }
 
-const ServicesResultPage = () => {
+const Page = () => {
   const { overseas } = overseasStore()
+  const router = useRouter()
 
-  useEffect(() => {
-    console.log(overseas)
-  }, [overseas])
+  const { user } = useRequireAuth()
+  if (!user) return null
+
+  if (!overseas?.images) {
+    router.back()
+    return null
+  }
 
   // TODO: 실제 API 호출로 대체
   const matches: CourierMatch[] = [
@@ -52,8 +59,8 @@ const ServicesResultPage = () => {
         <div className="bg-white p-4 rounded-xl shadow">
           {/* TODO: 실제 주문 정보 */}
           <p>서비스: 해외배송</p>
-          <p>선택 국가: 미국</p>
-          <p>총 무게: 2.3kg</p>
+          <p>선택 국가: {overseas?.country}</p>
+          <p>총 무게: {overseas?.weight}kg</p>
         </div>
       </section>
 
@@ -68,6 +75,8 @@ const ServicesResultPage = () => {
               <Image
                 src={c.logoUrl}
                 alt={c.name}
+                width={300}
+                height={300}
                 className="w-12 h-12 object-contain mr-4"
               />
               <div>
@@ -92,4 +101,4 @@ const ServicesResultPage = () => {
   )
 }
 
-export default ServicesResultPage
+export default Page

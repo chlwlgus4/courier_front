@@ -1,10 +1,9 @@
 'use client'
 
-import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { AuthForm } from '@/commons/components/auth/AuthForm'
-import API from '@/lib/api'
+import { register } from '@/api/auth'
+import RegisterForm from '@/commons/components/auth/RegisterForm'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -12,23 +11,28 @@ export default function RegisterPage() {
   const handleRegister = async ({
     username,
     password,
+    name,
+    email,
+    phone,
   }: {
     username: string
     password: string
+    name: string
+    email: string
+    phone: string
   }) => {
     try {
-      const res = await API.post('/api/user/register', { username, password })
-      // 서버가 { user, token } 형태로 돌려준다면:
-      const { token } = res.data
-      Cookies.set('jwt', token, { expires: 1 })
-      router.replace('/')
-    } catch {
+      const data = await register(username, password, name, email, phone)
+
+      if (data) router.replace('/')
+    } catch (error) {
       alert('회원가입 실패: 다시 시도해주세요.')
+      console.error('회원가입 오류:', error)
     }
   }
 
   return (
-    <AuthForm
+    <RegisterForm
       title="회원가입"
       description="계정 정보를 등록해주세요"
       onSubmit={handleRegister}
@@ -39,6 +43,6 @@ export default function RegisterPage() {
           로그인
         </Link>
       </p>
-    </AuthForm>
+    </RegisterForm>
   )
 }

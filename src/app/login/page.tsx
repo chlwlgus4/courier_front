@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FcGoogle } from 'react-icons/fc'
 import { login } from '@/api/auth'
-import { AuthForm } from '@/commons/components/auth/AuthForm'
+import LoginForm from '@/commons/components/auth/LoginForm'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -21,7 +21,7 @@ export default function LoginPage() {
   }
 
   return (
-    <AuthForm
+    <LoginForm
       title="로그인"
       description="로그인 정보를 입력해주세요"
       onSubmit={handleLogin}
@@ -44,6 +44,6 @@ export default function LoginPage() {
         <FcGoogle className="h-5 w-5" />
         구글 계정으로 로그인
       </button>
-    </AuthForm>
+    </LoginForm>
   )
 }

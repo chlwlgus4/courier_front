@@ -42,7 +42,6 @@ const FAQPage = () => {
 
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-center">자주 묻는 질문 (FAQ)</h1>
       <div className="space-y-2">
         {faqs.map((item, idx) => (
           <div key={idx} className="shadow rounded-lg overflow-hidden">

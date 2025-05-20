@@ -3,15 +3,21 @@
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import ImageSwiper from '@/app/overseas/components/ImageSwiper'
+import useRequireAuth from '@/hook/useRequireAuth'
 import { overseasStore } from '@/store/overseasStore'
 
 export default function ShippingPage() {
   const router = useRouter()
-  const [weight, setWeight] = useState<string>() // ← 무게 상태 추가
-  const [images, setImages] = useState<File[]>([])
-  const [notes, setNotes] = useState('')
-
   const { overseas, setOverseas } = overseasStore()
+
+  const [weight, setWeight] = useState<string>(
+    overseas?.weight ? String(overseas?.weight) : '',
+  )
+  const [images, setImages] = useState<File[]>(overseas?.images as File[])
+  const [notes, setNotes] = useState(overseas?.notes)
+
+  const { user } = useRequireAuth()
+  if (!user) return null
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
