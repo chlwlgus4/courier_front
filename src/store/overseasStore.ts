@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { OverseasState } from '@/app/overseas/types/overseas'
+import { OverseasState } from '@/app/(protected)/overseas/types/overseas'
 
 export const overseasStore = create<OverseasState>((set) => ({
   overseas: {

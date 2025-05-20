@@ -7,11 +7,11 @@ import { apiPost } from '@/lib/fetcher' // fetcher 가 /api/auth/refresh 를 호
 import { useAuthStore } from '@/store/authStore'
 
 export default function AuthInitializer() {
-  const { accessToken, setAccessToken } = useAuthStore()
+  const { accessToken, setAccessToken, setInitialized } = useAuthStore()
 
   useEffect(() => {
     if (accessToken) {
-      return
+      setInitialized(true)
     } else {
       ;(async () => {
         try {
@@ -21,10 +21,12 @@ export default function AuthInitializer() {
           }
         } catch (err) {
           console.warn('토큰 리프레시 실패:', err)
+        } finally {
+          setInitialized(true)
         }
       })()
     }
-  }, [accessToken, setAccessToken])
+  }, [accessToken, setAccessToken, setInitialized])
 
   return null
 }

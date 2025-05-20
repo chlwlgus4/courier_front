@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Country } from '@/app/overseas/types/country'
+import { Country } from '@/app/(protected)/overseas/types/country'
 import { overseasStore } from '@/store/overseasStore'
 
 export default function CountrySelect() {

@@ -2,8 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
-import useRequireAuth from '@/hook/useRequireAuth'
+import React from 'react'
 import { overseasStore } from '@/store/overseasStore'
 
 // (임시) 매칭 결과 타입 정의
@@ -18,9 +17,6 @@ interface CourierMatch {
 const Page = () => {
   const { overseas } = overseasStore()
   const router = useRouter()
-
-  const { user } = useRequireAuth()
-  if (!user) return null
 
   if (!overseas?.images) {
     router.back()

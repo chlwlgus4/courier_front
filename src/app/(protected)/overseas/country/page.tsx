@@ -1,15 +1,11 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import CountrySelect from '@/app/overseas/components/CountrySelect'
-import useRequireAuth from '@/hook/useRequireAuth'
+import CountrySelect from '@/app/(protected)/overseas/components/CountrySelect'
 import { overseasStore } from '@/store/overseasStore'
 
 const Page = () => {
   const router = useRouter()
-
-  const { user } = useRequireAuth()
-  if (!user) return null
 
   const { overseas } = overseasStore()
 

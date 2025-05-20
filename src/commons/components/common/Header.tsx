@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { PAGE_TITLES } from '@/config/pageTitle'
+import { useAuthStore } from '@/store/authStore'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -11,11 +12,14 @@ export default function Header() {
   const router = useRouter()
   const [showBack, setShowBack] = useState(false)
 
+  const { initialized } = useAuthStore()
+
   useEffect(() => {
     // 기본 경로에서는 뒤로가기 버튼 안보이도록
     setShowBack(pathname !== '/' && pathname !== '/home')
   }, [pathname])
 
+  if (!initialized) return null
   if (pathname === '/') return null
 
   const hideHeaderPaths = ['/login', '/register']

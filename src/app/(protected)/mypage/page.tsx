@@ -14,15 +14,11 @@ import {
   FiStar,
   FiUser,
 } from 'react-icons/fi'
-import useRequireAuth from '@/hook/useRequireAuth'
 import { useAuthStore } from '@/store/authStore'
 
 const Page = () => {
   const router = useRouter()
-  const { clearAuth } = useAuthStore()
-
-  const { user } = useRequireAuth()
-  if (!user) return null
+  const { clearAuth, user } = useAuthStore()
 
   const quickLinks = [
     {
@@ -66,7 +62,7 @@ const Page = () => {
           <FiUser className="text-3xl text-gray-400" />
         </div>
         <div>
-          <p className="text-lg font-semibold">{user.username} 님</p>
+          <p className="text-lg font-semibold">{user.name} 님</p>
           <Link href="/mypage/settings" className="text-sm text-gray-500">
             프로필 관리 &gt;
           </Link>
