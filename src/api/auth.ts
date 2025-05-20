@@ -41,7 +41,7 @@ export async function register(
   phone?: string,
 ): Promise<AuthResponse | null> {
   try {
-    const data = await apiPost<AuthResponse>('/api/user/register', {
+    const data = await apiPost<AuthResponse>('/auth/register', {
       username,
       password,
       name,

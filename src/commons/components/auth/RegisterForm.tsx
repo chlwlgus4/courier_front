@@ -67,12 +67,16 @@ export default function RegisterForm({
     }
 
     // 이메일 검증 (선택 사항이지만 입력한 경우 유효성 검사)
-    if (email && !/\S+@\S+\.\S+/.test(email)) {
+    if (!email) {
+      newErrors.email = '이메일을 입력해주세요'
+    } else if (email && !/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = '유효한 이메일 주소를 입력해주세요'
     }
 
     // 전화번호 검증 (선택 사항이지만 입력한 경우 유효성 검사)
-    if (phone && !/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/.test(phone)) {
+    if (!phone) {
+      newErrors.phone = '전화번호를 입력해주세요'
+    } else if (phone && !/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/.test(phone)) {
       newErrors.phone = '유효한 전화번호 형식이 아닙니다 (예: 010-1234-5678)'
     }
 
@@ -86,13 +90,10 @@ export default function RegisterForm({
     if (!validateForm()) return
 
     setIsLoading(true)
-    try {
-      await onSubmit({ username, password, name, email, phone })
-    } catch (error) {
-      console.error('회원가입 오류:', error)
-    } finally {
-      setIsLoading(false)
-    }
+
+    await onSubmit({ username, password, name, email, phone })
+
+    setIsLoading(false)
   }
 
   return (
@@ -245,7 +246,7 @@ export default function RegisterForm({
                   )}
                 </div>
 
-                {/* 전화번호 필드 (선택 사항) */}
+                {/* 전화번호 필드 */}
                 <div>
                   <label htmlFor="phone" className="block text-sm mb-2">
                     전화번호 (선택)
