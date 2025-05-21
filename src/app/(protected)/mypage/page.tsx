@@ -15,6 +15,7 @@ import {
   FiStar,
   FiUser,
 } from 'react-icons/fi'
+import { logout } from '@/api/auth'
 import { useAuthStore } from '@/store/authStore'
 
 const Page = () => {
@@ -44,9 +45,9 @@ const Page = () => {
     },
   ]
 
-  const handleLogout = () => {
-    clearAuth()
-    router.replace('/login')
+  const handleLogout = async () => {
+    const data = await logout()
+    console.log(data)
   }
 
   const menuItems = [
@@ -165,7 +166,10 @@ const Page = () => {
         </ul>
       </div>
       <div className="pt-4 border-t border-gray-300 text-center text-sm">
-        <button className="inline-block text-blue-600 hover:underline font-normal">
+        <button
+          className="inline-block text-blue-600 hover:underline font-normal"
+          onClick={() => handleLogout()}
+        >
           로그아웃
         </button>
       </div>

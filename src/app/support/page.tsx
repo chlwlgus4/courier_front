@@ -1,8 +1,6 @@
 'use client'
 
-import { Button, Disclosure } from '@headlessui/react'
 import { useState } from 'react'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import FaqLayout from '@/app/support/faq/components/FaqLayout'
 import { SearchBar } from '@/commons/components/common/SearchBar'
 

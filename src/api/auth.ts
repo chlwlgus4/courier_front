@@ -1,4 +1,4 @@
-import { AuthResponse, User } from '@/commons/types'
+import { AuthResponse } from '@/commons/types'
 import { setTokens } from '@/lib/api'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
@@ -21,6 +21,18 @@ export async function login(
   if (!data) return null
 
   setTokens(data)
+  return data
+}
+
+/**
+ * 로그아웃
+ * @returns 로그인 후 반환된 토큰 정보
+ */
+export async function logout(): Promise<AuthResponse | null> {
+  const data = await apiPost<AuthResponse>('/auth/logout')
+  console.log(data)
+
+  useAuthStore.getState().clearAuth()
   return data
 }
 
