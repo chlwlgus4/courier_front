@@ -28,7 +28,7 @@ const MobileHeader = () => {
           <FiShoppingCart size={24} color={'#fff'} />
         </div>
       </div>
-      <SearchBar />
+      <SearchBar borderColor={'border-teal-500'} />
     </header>
   )
 }

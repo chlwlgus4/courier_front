@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { FaRegQuestionCircle } from 'react-icons/fa'
 import {
   FiChevronRight,
   FiClock,
@@ -52,6 +53,11 @@ const Page = () => {
     { icon: <FiStar />, label: '리뷰 관리', href: '/mypage/reviews' },
     { icon: <FiGift />, label: '선물함', href: '/mypage/gifts' },
     { icon: <FiCreditCard />, label: '결제수단', href: '/mypage/payments' },
+    {
+      icon: <FaRegQuestionCircle />,
+      label: '고객센터',
+      href: '/support',
+    },
     { icon: <FiSettings />, label: '설정', onClick: handleLogout },
   ]
 

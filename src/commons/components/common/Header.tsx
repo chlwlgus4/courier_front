@@ -29,8 +29,8 @@ export default function Header() {
   const pageTitle = PAGE_TITLES[pathname] ?? ''
 
   return (
-    <header className="top-0 left-0 right-0 z-30 bg-white shadow">
-      <div className="px-6 sm:px-8 py-4 sm:py-6 flex justify-between items-center">
+    <header className="top-0 left-0 right-0 z-30 bg-white">
+      <div className="px-6 sm:px-8 py-2 sm:py-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           {/* 모바일 뒤로가기 버튼 */}
           {showBack && (
