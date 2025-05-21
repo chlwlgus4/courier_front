@@ -164,13 +164,10 @@ const Page = () => {
           ))}
         </ul>
       </div>
-      <div className="pt-4 border-t border-gray-300">
-        <Link
-          href="/faq"
-          className="inline-block text-blue-600 hover:underline font-normal"
-        >
-          자주 묻는 질문(FAQ) 보러가기
-        </Link>
+      <div className="pt-4 border-t border-gray-300 text-center text-sm">
+        <button className="inline-block text-blue-600 hover:underline font-normal">
+          로그아웃
+        </button>
       </div>
     </div>
   )
