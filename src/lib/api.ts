@@ -33,7 +33,7 @@ API.interceptors.request.use(
   },
   (error) => {
     useLoadingStore.getState().setLoading(false)
-    return Promise.reject(error)
+    return error
   },
 )
 
