@@ -49,10 +49,14 @@ const PurchaseForm = () => {
     >
       {/* 상품 URL */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor={'url'}
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           상품 페이지 URL
         </label>
         <input
+          id={'url'}
           type="url"
           value={productUrl}
           onChange={(e) => setProductUrl(e.target.value)}
@@ -64,10 +68,14 @@ const PurchaseForm = () => {
 
       {/* 스크린샷 이미지 업로드 (최대 5개) */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor={'file'}
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           상품 사진 업로드 (최대 5개)
         </label>
         <input
+          id={'file'}
           type="file"
           accept="image/*"
           multiple
@@ -103,10 +111,14 @@ const PurchaseForm = () => {
 
       {/* 수량 */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor={'quantity'}
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           수량
         </label>
         <input
+          id="quantity"
           type="number"
           min={1}
           value={quantity}
