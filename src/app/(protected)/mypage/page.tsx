@@ -20,7 +20,7 @@ import { useAuthStore } from '@/store/authStore'
 
 const Page = () => {
   const router = useRouter()
-  const { clearAuth, user } = useAuthStore()
+  const { user } = useAuthStore()
 
   const quickLinks = [
     {
@@ -45,9 +45,8 @@ const Page = () => {
     },
   ]
 
-  const handleLogout = async () => {
-    const data = await logout()
-    console.log(data)
+  const handleLogout = () => {
+    logout().then(() => router.push('/'))
   }
 
   const menuItems = [
