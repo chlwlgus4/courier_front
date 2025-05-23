@@ -28,8 +28,11 @@ export default function CountrySelect() {
 
   return (
     <div className="w-full mx-auto">
-      <label className="block mb-1 font-medium">국가 선택</label>
+      <label htmlFor={'country'} className="block mb-1 font-medium">
+        국가 선택
+      </label>
       <select
+        id={'country'}
         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         value={country}
         onChange={(e) => setCountry(e.target.value)}

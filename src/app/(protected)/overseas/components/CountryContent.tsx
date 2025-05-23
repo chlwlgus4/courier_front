@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import CountrySelect from '@/app/(protected)/overseas/components/CountrySelect'
 import { overseasStore } from '@/store/overseasStore'
 
-const Page = () => {
+const CountryContent = () => {
   const router = useRouter()
 
   const { overseas } = overseasStore()
@@ -28,4 +28,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default CountryContent
