@@ -7,4 +7,5 @@ export const PAGE_TITLES: Record<string, string> = {
   '/faq': '자주 묻는 질문 (FAQ)',
   '/cost-calculator': '배송비 계산기',
   '/support': '고객센터',
+  '/purchase': '구매대행',
 }

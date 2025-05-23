@@ -23,7 +23,11 @@ const HomePage = () => {
       {/* 2×2 메뉴 그리드 */}
       <div className="grid grid-cols-2 gap-4 mt-4">
         {[
-          { icon: <FcGlobe size={32} />, label: '해외배송', path: 'overseas' },
+          {
+            icon: <FcGlobe size={32} />,
+            label: '해외배송',
+            path: 'overseas/country',
+          },
           { icon: <FcShop size={32} />, label: '구매대행', path: 'purchase' },
           {
             icon: <FcExport size={32} />,
@@ -34,7 +38,7 @@ const HomePage = () => {
         ].map((item) => (
           <Link
             key={item.label}
-            href={`/${item.path}/country`}
+            href={`/${item.path}`}
             className="bg-cyan-950 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
           >
             {item.icon}
