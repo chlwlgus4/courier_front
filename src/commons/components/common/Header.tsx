@@ -111,11 +111,11 @@ export default function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t px-6 py-4 fixed top-[64px] left-0 w-full shadow-md z-30">
+        <div className="md:hidden bg-white px-6 py-4 fixed top-[64px] left-0 w-full shadow-md z-30">
           <nav className="flex flex-col space-y-4 text-sm font-medium">
             <Link href="/post">판매글 등록</Link>
             <Link href="#">내 매칭</Link>
-            <Link href="#">프로필</Link>
+            <Link href="/mypage">프로필</Link>
           </nav>
         </div>
       )}
