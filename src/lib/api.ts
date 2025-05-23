@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { AuthResponse } from '@/commons/types'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
+import useLoadingStore from '@/store/loadingStore'
 
 interface RetryableRequestConfig extends AxiosRequestConfig {
   _retry?: boolean
@@ -21,13 +22,20 @@ export function setTokens(data: AuthResponse) {
 }
 
 // — 요청 인터셉터: 항상 최신 accessToken 사용 —
-API.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().accessToken
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
+API.interceptors.request.use(
+  (config) => {
+    useLoadingStore.getState().setLoading(true)
+    const token = useAuthStore.getState().accessToken
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    useLoadingStore.getState().setLoading(false)
+    return Promise.reject(error)
+  },
+)
 
 // — 응답 인터셉터: 401 → 리프레시 흐름 —
 let isRefreshing = false
@@ -48,8 +56,12 @@ const processQueue = (err: any, token: string | null = null) => {
 const EXCLUDED_PATHS = ['/auth/login', '/auth/register', '/auth/refresh']
 
 API.interceptors.response.use(
-  (res) => res,
+  (res) => {
+    useLoadingStore.getState().setLoading(false)
+    return res
+  },
   async (error: AxiosError) => {
+    useLoadingStore.getState().setLoading(false)
     const originalReq = error.config as RetryableRequestConfig
     const reqUrl = originalReq.url ?? ''
 

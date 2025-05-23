@@ -1,5 +1,6 @@
 export * from '@/commons/types/auth/auth'
 export * from '@/commons/types/user/user'
+export * from '@/commons/types/commons/commons'
 export * from '@/app/services/types/category'
 export * from '@/app/(protected)/overseas/shipping/types/shipping'
 export * from '@/app/(protected)/overseas/duty/types/duty'

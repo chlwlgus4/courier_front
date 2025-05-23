@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios'
+import { useLoading } from '@/context/LoadingContext'
 import API from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 
@@ -22,7 +23,7 @@ export async function apiPost<T>(url: string, body?: any): Promise<T | null> {
     const axiosErr = err as AxiosError<ErrorDTO>
 
     const code = axiosErr.response?.data.code
-    if (code === 'REFRESH_TOKEN_INVALID') {
+    if (code === 'REFRESH_TOKEN_INVALID' || url === '/auth/refresh') {
       useAuthStore.getState().clearAuth()
     } else {
       alert(
@@ -51,7 +52,7 @@ export async function apiGet<T>(
     const axiosErr = err as AxiosError<ErrorDTO>
     const code = axiosErr.response?.data.code
 
-    if (code === 'REFRESH_TOKEN_INVALID') {
+    if (code === 'REFRESH_TOKEN_INVALID' || url === '/auth/refresh') {
       useAuthStore.getState().clearAuth()
     } else {
       alert(

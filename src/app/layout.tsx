@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import React from 'react'
-import AuthProvider from '@/commons/components/auth/AuthProvider'
 import BackgroundLayout from '@/commons/components/common/BackgroundLayout'
+import ClientAppWrapper from '@/commons/components/common/ClientAppWrapper'
 import Header from '@/commons/components/common/Header'
 import MobileHeader from '@/commons/components/common/MobileHeader'
 import NavigationBar from '@/commons/components/common/NavigationBar'
@@ -34,12 +34,12 @@ export default function RootLayout({
         <BackgroundLayout>
           <Header />
           <MobileHeader />
-          <AuthProvider>
+          <ClientAppWrapper>
             <div className={''}>
               <main className={'mb-20'}>{children}</main>
               <NavigationBar />
             </div>
-          </AuthProvider>
+          </ClientAppWrapper>
         </BackgroundLayout>
       </body>
     </html>
