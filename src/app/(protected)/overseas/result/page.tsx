@@ -55,7 +55,7 @@ const Page = () => {
         <h2 className="text-lg font-semibold">주문 정보</h2>
         <div className="bg-white p-4 rounded-xl shadow">
           {/* TODO: 실제 주문 정보 */}
-          <p>서비스: {SERVICE_NAME[overseas?.type]}</p>
+          <p>서비스: {SERVICE_NAME[overseas?.type as string]}</p>
           <p>선택 국가: {overseas?.country}</p>
           <p>총 무게: {overseas?.weight}kg</p>
           <p>보험 금액: {overseas?.insuranceValue}</p>
