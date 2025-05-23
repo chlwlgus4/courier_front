@@ -4,8 +4,10 @@ export interface OverseasState {
 }
 
 export type Overseas = {
+  type: string
   country?: string
   images?: File[]
   weight?: number
   notes?: string
+  insuranceValue: number
 }

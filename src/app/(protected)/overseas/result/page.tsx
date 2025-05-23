@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { SERVICE_NAME } from '@/config'
 import { overseasStore } from '@/store/overseasStore'
 
 // (임시) 매칭 결과 타입 정의
@@ -54,9 +55,10 @@ const Page = () => {
         <h2 className="text-lg font-semibold">주문 정보</h2>
         <div className="bg-white p-4 rounded-xl shadow">
           {/* TODO: 실제 주문 정보 */}
-          <p>서비스: 해외배송</p>
+          <p>서비스: {SERVICE_NAME[overseas?.type]}</p>
           <p>선택 국가: {overseas?.country}</p>
           <p>총 무게: {overseas?.weight}kg</p>
+          <p>보험 금액: {overseas?.insuranceValue}</p>
         </div>
       </section>
 

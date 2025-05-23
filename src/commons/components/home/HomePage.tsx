@@ -5,9 +5,9 @@ import React from 'react'
 import {
   FcAssistant,
   FcBullish,
+  FcCalculator,
   FcExport,
   FcGlobe,
-  FcHome,
   FcLike,
   FcShop,
 } from 'react-icons/fc'
@@ -32,9 +32,13 @@ const HomePage = () => {
           {
             icon: <FcExport size={32} />,
             label: '배송대행',
-            path: 'forwarding',
+            path: 'overseas/forwarding',
           },
-          { icon: <FcHome size={32} />, label: '배대지', path: 'warehouse' },
+          {
+            icon: <FcCalculator size={32} />,
+            label: '배송비 계산기',
+            path: 'cost-calculator',
+          },
         ].map((item) => (
           <Link
             key={item.label}

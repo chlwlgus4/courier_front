@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { PAGE_TITLES } from '@/config/pageTitle'
+import { PAGE_TITLES } from '@/config'
 import { useAuthStore } from '@/store/authStore'
 
 export default function Header() {
@@ -26,6 +26,7 @@ export default function Header() {
   const shouldHideHeader = hideHeaderPaths.includes(pathname)
   // 로그인, 회원가입 페이지는 헤더 표시 안함
   if (shouldHideHeader) return null
+  console.log(pathname)
   const pageTitle = PAGE_TITLES[pathname] ?? ''
 
   return (
