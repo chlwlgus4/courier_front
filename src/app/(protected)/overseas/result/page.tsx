@@ -90,7 +90,7 @@ const Page = () => {
       </section>
 
       <button
-        onClick={() => window.location.replace('/overseas')}
+        onClick={() => router.push('/')}
         className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium shadow hover:bg-blue-700 transition"
       >
         다시 신청하기

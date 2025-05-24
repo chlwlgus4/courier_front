@@ -26,7 +26,6 @@ export default function Header() {
   const shouldHideHeader = hideHeaderPaths.includes(pathname)
   // 로그인, 회원가입 페이지는 헤더 표시 안함
   if (shouldHideHeader) return null
-  console.log(pathname)
   const pageTitle = PAGE_TITLES[pathname] ?? ''
 
   return (
