@@ -2,6 +2,7 @@ import { AuthResponse } from '@/commons/types'
 import { setTokens } from '@/lib/api'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
+import { useUserStore } from '@/store/userStore'
 
 /**
  * 로그인
@@ -19,8 +20,7 @@ export async function login(
   })
 
   if (!data) return null
-
-  setTokens(data)
+  setTokens(data.accessToken)
   return data
 }
 
@@ -33,6 +33,7 @@ export async function logout(): Promise<AuthResponse | null> {
   console.log(data)
 
   useAuthStore.getState().clearAuth()
+  useUserStore.getState().clearUser()
   return data
 }
 
@@ -62,8 +63,7 @@ export async function register(
     })
 
     if (!data) return null
-
-    setTokens(data)
+    setTokens(data.accessToken)
     return data
   } catch (error) {
     console.error('회원가입 오류:', error)

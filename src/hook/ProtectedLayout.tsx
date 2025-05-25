@@ -9,7 +9,7 @@ export default function ProtectedLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  const { accessToken, user, initialized } = useAuthStore()
+  const { accessToken, initialized } = useAuthStore()
   const router = useRouter()
 
   // 페이지 처음 렌더링 시 토큰이 없으면 /login 으로
@@ -23,7 +23,7 @@ export default function ProtectedLayout({
   if (!initialized) return <AuthInitializer />
 
   // 아직 인증 흐름(AuthInitializer)이 돌고 있거나, 토큰이 없는 동안은 아무것도 그리지 않음
-  if (!accessToken || !user) {
+  if (!accessToken) {
     return null
   }
 

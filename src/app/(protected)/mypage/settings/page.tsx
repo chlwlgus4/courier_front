@@ -6,10 +6,12 @@ import { FiLock, FiMail, FiSave, FiUser } from 'react-icons/fi'
 import { User } from '@/commons/types'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
+import { useUserStore } from '@/store/userStore'
 
 const Page = () => {
   const router = useRouter()
-  const { user, clearAuth, setUser } = useAuthStore()
+  const { clearAuth } = useAuthStore()
+  const { user, setUser } = useUserStore()
   const [form, setForm] = useState<User | null>(user ?? null)
   const [currentPw, setCurrentPw] = useState('')
   const [newPw, setNewPw] = useState('')

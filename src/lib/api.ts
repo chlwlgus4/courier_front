@@ -15,9 +15,8 @@ const API = axios.create({
 })
 
 // — 로그인 후 호출할 토큰 저장 유틸 —
-export function setTokens(data: AuthResponse) {
-  const { accessToken, user } = data
-  useAuthStore.getState().setAccessToken(accessToken, user)
+export function setTokens(accessToken: string) {
+  useAuthStore.getState().setAccessToken(accessToken)
   API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
 }
 
@@ -92,7 +91,7 @@ API.interceptors.response.use(
         const bearer = `Bearer ${data.accessToken}`
 
         // 토큰·헤더·쿠키 모두 갱신
-        setTokens(data)
+        setTokens(data.accessToken)
         API.defaults.headers.common['Authorization'] = bearer
 
         // 큐에 대기 중인 요청 풀기

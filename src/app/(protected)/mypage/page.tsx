@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { FaRegQuestionCircle } from 'react-icons/fa'
 import {
   FiChevronRight,
@@ -16,11 +17,28 @@ import {
   FiUser,
 } from 'react-icons/fi'
 import { logout } from '@/api/auth'
-import { useAuthStore } from '@/store/authStore'
+import { getUser } from '@/api/user'
+import { useUserStore } from '@/store/userStore'
 
 const Page = () => {
   const router = useRouter()
-  const { user } = useAuthStore()
+  const { user, setUser } = useUserStore()
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const data = await getUser()
+        if (data?.user) setUser(data.user)
+        else router.replace('/login')
+      } catch (e) {
+        console.error(e)
+      }
+    })()
+  }, [])
+
+  if (!user) {
+    return null
+  }
 
   const quickLinks = [
     {

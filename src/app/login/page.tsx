@@ -17,7 +17,9 @@ export default function LoginPage() {
     password: string
   }) => {
     const data = await login(username, password)
-    if (data) router.back()
+    if (data) {
+      router.back()
+    }
   }
 
   return (

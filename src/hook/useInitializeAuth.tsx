@@ -16,9 +16,7 @@ export default function AuthInitializer() {
       ;(async () => {
         try {
           const data = await apiPost<AuthResponse>('/auth/refresh')
-          if (data?.accessToken) {
-            setTokens(data)
-          }
+          if (data?.accessToken) setTokens(data.accessToken)
         } catch (err) {
           console.warn('토큰 리프레시 실패:', err)
         } finally {

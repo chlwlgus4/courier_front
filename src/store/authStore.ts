@@ -3,10 +3,8 @@ import { AuthState } from '@/commons/types'
 
 export const useAuthStore = create<AuthState>((set) => ({
   accessToken: null,
-  user: null,
   initialized: false,
-  setAccessToken: (token, user) => set({ accessToken: token, user }),
-  setUser: (user) => set({ user }),
-  clearAuth: () => set({ accessToken: null, user: null }),
+  setAccessToken: (token) => set({ accessToken: token }),
+  clearAuth: () => set({ accessToken: null }),
   setInitialized: (v) => set({ initialized: v }),
 }))
