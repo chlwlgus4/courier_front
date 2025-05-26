@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { useAuthStore } from '@/store/authStore'
+import { useUserStore } from '@/store/userStore'
 
 /**
  * 로그인 상태가 아니면 즉시 /login 으로 리다이렉트
@@ -10,7 +10,7 @@ import { useAuthStore } from '@/store/authStore'
  */
 const useRequireAuth = () => {
   const router = useRouter()
-  const user = useAuthStore((s) => s.user)
+  const user = useUserStore((s) => s.user)
 
   useEffect(() => {
     if (!user) {
