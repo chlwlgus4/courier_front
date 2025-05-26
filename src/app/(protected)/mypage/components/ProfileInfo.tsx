@@ -1,10 +1,10 @@
 'use client'
 
 import { FiUser } from 'react-icons/fi'
-import { useAuthStore } from '@/store/authStore'
+import { useUserStore } from '@/store/userStore'
 
 const ProfileInfo = () => {
-  const { user } = useAuthStore()
+  const { user } = useUserStore()
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-5">
