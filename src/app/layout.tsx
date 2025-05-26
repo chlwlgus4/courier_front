@@ -4,7 +4,6 @@ import './globals.css'
 import React from 'react'
 import BackgroundLayout from '@/commons/components/common/BackgroundLayout'
 import Header from '@/commons/components/common/Header'
-import MobileHeader from '@/commons/components/common/MobileHeader'
 import NavigationBar from '@/commons/components/common/NavigationBar'
 
 const geistSans = Geist({
@@ -32,9 +31,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <BackgroundLayout>
           <Header />
-          <MobileHeader />
           <div className={''}>
-            <main className={'mb-20'}>{children}</main>
+            <main className={'mb-15'}>{children}</main>
             <NavigationBar />
           </div>
         </BackgroundLayout>

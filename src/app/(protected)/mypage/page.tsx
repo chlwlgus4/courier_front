@@ -80,14 +80,14 @@ const Page = () => {
   ]
 
   return (
-    <div className="px-4 py-6 space-y-6">
+    <div className="px-4 py-6 space-y-6 bg-cyan-600">
       <div className="flex items-center space-x-4">
         <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
           <FiUser className="text-3xl text-gray-400" />
         </div>
         <div>
-          <p className="text-lg font-semibold">{user.name} 님</p>
-          <Link href="/mypage/settings" className="text-sm text-gray-500">
+          <p className="text-lg font-semibold text-white">{user.name} 님</p>
+          <Link href="/mypage/settings" className="text-sm text-white">
             프로필 관리 &gt;
           </Link>
         </div>
@@ -184,7 +184,7 @@ const Page = () => {
       </div>
       <div className="pt-4 border-t border-gray-300 text-center text-sm">
         <button
-          className="inline-block text-blue-600 hover:underline font-normal"
+          className="inline-block text-white hover:underline font-normal"
           onClick={() => handleLogout()}
         >
           로그아웃

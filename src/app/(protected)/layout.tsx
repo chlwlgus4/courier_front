@@ -9,7 +9,7 @@ export default function ProtectedGroupLayout({
 }>) {
   return (
     <ProtectedLayout>
-      <main className="mb-20">{children}</main>
+      <main className="mb-15">{children}</main>
       <NavigationBar />
     </ProtectedLayout>
   )

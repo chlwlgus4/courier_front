@@ -2,76 +2,42 @@
 
 import Link from 'next/link'
 import React from 'react'
-import {
-  FcAssistant,
-  FcBullish,
-  FcCalculator,
-  FcExport,
-  FcGlobe,
-  FcLike,
-  FcShop,
-} from 'react-icons/fc'
+import FAQSection from './FAQSection'
+import ServiceCard from '@/commons/components/home/ServiceCard'
 
 const HomePage = () => {
   return (
-    <div className="flex-1 overflow-auto scrollbar-hide px-4 py-3 rounded-t-xl bg-white">
-      {/* 공지/광고 배너 */}
-      <div className="bg-cyan-950 text-white rounded-xl h-36 flex items-center justify-center text-2xl font-semibold shadow">
-        공지 및 광고
-      </div>
+    <div className="flex-1 p-4 space-y-6 bg-cyan-600">
+      <section className="bg-toss-100 rounded-2xl shadow-md p-6 bg-white">
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          비교 견적으로 가장 저렴하게
+        </h2>
+        <p className="text-gray-600">
+          다양한 쿠리어사를 한눈에 비교하고, 최적의 해외배송 서비스를
+          이용해보세요.
+        </p>
+      </section>
 
       {/* 2×2 메뉴 그리드 */}
-      <div className="grid grid-cols-2 gap-4 mt-4">
-        {[
-          {
-            icon: <FcGlobe size={32} />,
-            label: '해외배송',
-            path: 'overseas/country',
-          },
-          { icon: <FcShop size={32} />, label: '구매대행', path: 'purchase' },
-          {
-            icon: <FcExport size={32} />,
-            label: '배송대행',
-            path: 'overseas/forwarding',
-          },
-          {
-            icon: <FcCalculator size={32} />,
-            label: '배송비 계산기',
-            path: 'cost-calculator',
-          },
-        ].map((item) => (
-          <Link
-            key={item.label}
-            href={`/${item.path}`}
-            className="bg-cyan-950 text-white rounded-xl h-24 flex flex-col items-center justify-center shadow"
-          >
-            {item.icon}
-            <span className="mt-2 font-medium">{item.label}</span>
-          </Link>
-        ))}
-      </div>
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Link href={'/overseas/country'}>
+          <ServiceCard title="해외배송 매칭" icon="🌍" />
+        </Link>
+        <Link href={'/purchase'}>
+          <ServiceCard title="구매대행" icon="🛒" />
+        </Link>
+        <Link href={'/overseas/forwarding'}>
+          <ServiceCard title="배송대행" icon="📦" />
+        </Link>
+      </section>
 
-      {/* 카테고리 아이콘 리스트 */}
-      <div className="mt-6 overflow-x-auto">
-        <div className="flex space-x-4">
-          {[
-            { icon: <FcBullish size={28} />, label: '광고 업체1' },
-            { icon: <FcAssistant size={28} />, label: '광고 업체2' },
-            { icon: <FcLike size={28} />, label: '광고 업체3' },
-            // 필요에 따라 추가…
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="flex-shrink-0 flex flex-col items-center"
-            >
-              <div className="bg-white p-2 rounded-full shadow">
-                {item.icon}
-              </div>
-              <span className="mt-1 text-sm">{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* FAQ Section */}
+      <section className="bg-violet-50 rounded-2xl shadow-md p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          자주 묻는 질문
+        </h3>
+        <FAQSection />
+      </section>
     </div>
   )
 }
