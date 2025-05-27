@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import ImageSwiper from '@/app/(protected)/overseas/components/ImageSwiper'
 import { overseasStore } from '@/store/overseasStore'
 
-export default function ShippingPage() {
+const ShippingPage = () => {
   const router = useRouter()
   const { type } = useParams()
   console.log('type:', type)
@@ -152,7 +152,7 @@ export default function ShippingPage() {
                 e.target.value === '' ? '' : parseInt(e.target.value),
               )
             }
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-toss-500"
             placeholder="예: 10000"
           />
         </div>
@@ -170,7 +170,7 @@ export default function ShippingPage() {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             rows={4}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-toss-500 resize-none"
             placeholder="특이사항이 있으시면 입력하세요"
           />
         </div>
@@ -178,7 +178,7 @@ export default function ShippingPage() {
         {/* 4. 제출 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium shadow-sm hover:bg-blue-700 transition"
+          className="w-full bg-toss-500 text-white py-3 rounded-lg text-lg font-medium shadow-sm hover:bg-toss-700 transition"
           disabled={!images.length}
         >
           신청하기
@@ -187,3 +187,5 @@ export default function ShippingPage() {
     </div>
   )
 }
+
+export default ShippingPage
