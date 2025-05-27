@@ -80,7 +80,7 @@ const Page = () => {
   ]
 
   return (
-    <div className="px-4 py-6 space-y-6 bg-cyan-600">
+    <div className="px-4 py-6 space-y-6">
       <div className="flex items-center space-x-4">
         <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
           <FiUser className="text-3xl text-gray-400" />

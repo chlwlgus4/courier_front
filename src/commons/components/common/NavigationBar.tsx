@@ -3,33 +3,45 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import { FiClipboard, FiDollarSign, FiHome, FiUser } from 'react-icons/fi'
+
+const navItems = [
+  { label: '홈', icon: FiHome, path: '/' },
+  { label: '견적', icon: FiDollarSign, path: '/cost-calculator' },
+  { label: '주문', icon: FiClipboard, path: '/orders' },
+  { label: '내 정보', icon: FiUser, path: '/mypage' },
+]
 
 const NavigationBar = () => {
-  const path = usePathname()
+  const pathname = usePathname()
 
   const hideHeaderPaths = ['/login', '/register']
-  const shouldHideHeader = hideHeaderPaths.includes(path)
+  const shouldHideHeader = hideHeaderPaths.includes(pathname)
 
   if (shouldHideHeader) return null
 
   return (
     <nav className="bg-white shadow-sm fixed bottom-0 inset-x-0 h-16 flex justify-around items-center">
-      {[
-        { label: '홈', icon: '🏠', path: '/' },
-        { label: '견적', icon: '💰', path: '/cost-calculator' },
-        { label: '주문', icon: '📋', path: '/order' },
-        { label: '내 정보', icon: '👤', path: '/mypage' },
-      ].map(({ label, icon, path }) => (
-        <Link href={path} key={path}>
-          <button
-            key={label}
-            className="flex flex-col items-center text-sm text-gray-600 hover:bg-sky-200 transition p-2 rounded"
+      {navItems.map(({ label, icon: Icon, path }) => {
+        const isActive = pathname === path
+
+        return (
+          <Link
+            href={path}
+            key={path}
+            className="flex flex-col items-center text-xs"
           >
-            <span className="text-2xl mb-1 text-amber-300">{icon}</span>
-            <span className="text-gray-700">{label}</span>
-          </button>
-        </Link>
-      ))}
+            <Icon
+              className={`text-xl mb-1 ${isActive ? 'text-gray-950' : 'text-gray-400'}`}
+            />
+            <span
+              className={`${isActive ? 'text-gray-950 font-medium' : 'text-gray-400'}`}
+            >
+              {label}
+            </span>
+          </Link>
+        )
+      })}
     </nav>
   )
 }

@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import React from 'react'
+import { FaBox, FaGlobe, FaShoppingCart } from 'react-icons/fa'
 import FAQSection from './FAQSection'
 import ServiceCard from '@/commons/components/home/ServiceCard'
 
 const HomePage = () => {
   return (
-    <div className="flex-1 p-4 space-y-6 bg-cyan-600">
-      <section className="bg-toss-100 rounded-2xl shadow-md p-6 bg-white">
+    <div className="flex-1 p-4 space-y-6">
+      <section className="bg-toss-100 rounded-2xl shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-2">
           비교 견적으로 가장 저렴하게
         </h2>
@@ -21,13 +22,13 @@ const HomePage = () => {
       {/* 2×2 메뉴 그리드 */}
       <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Link href={'/overseas/country'}>
-          <ServiceCard title="해외배송 매칭" icon="🌍" />
+          <ServiceCard title="해외배송 매칭" icon={<FaGlobe />} />
         </Link>
         <Link href={'/purchase'}>
-          <ServiceCard title="구매대행" icon="🛒" />
+          <ServiceCard title="구매대행" icon={<FaShoppingCart />} />
         </Link>
         <Link href={'/overseas/forwarding'}>
-          <ServiceCard title="배송대행" icon="📦" />
+          <ServiceCard title="배송대행" icon={<FaBox />} />
         </Link>
       </section>
 

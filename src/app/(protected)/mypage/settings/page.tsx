@@ -90,7 +90,7 @@ const Page = () => {
       <button
         onClick={handleProfileSave}
         disabled={loading}
-        className="w-full flex items-center justify-center bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-lg transition"
+        className="w-full flex items-center justify-center hover:bg-cyan-700 text-white py-3 rounded-lg transition"
       >
         <FiSave className="mr-2" /> 저장하기
       </button>

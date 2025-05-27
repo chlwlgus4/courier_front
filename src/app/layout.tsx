@@ -32,7 +32,7 @@ export default function RootLayout({
         <BackgroundLayout>
           <Header />
           <div className={''}>
-            <main className={'mb-15'}>{children}</main>
+            <main className={'mb-15 '}>{children}</main>
             <NavigationBar />
           </div>
         </BackgroundLayout>

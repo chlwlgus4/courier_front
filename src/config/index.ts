@@ -10,6 +10,7 @@ export const PAGE_TITLES: Record<string, string> = {
   '/cost-calculator': '배송비 계산기',
   '/support': '고객센터',
   '/purchase': '구매대행',
+  '/orders': '주문 내역',
 }
 
 export const SERVICE_NAME: Record<string, string> = {
