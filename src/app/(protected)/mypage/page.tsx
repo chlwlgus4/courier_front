@@ -86,8 +86,8 @@ const Page = () => {
           <FiUser className="text-3xl text-gray-400" />
         </div>
         <div>
-          <p className="text-lg font-semibold text-white">{user.name} 님</p>
-          <Link href="/mypage/settings" className="text-sm text-white">
+          <p className="text-lg font-semibold">{user.name} 님</p>
+          <Link href="/mypage/settings" className="text-sm text-gray-500">
             프로필 관리 &gt;
           </Link>
         </div>
