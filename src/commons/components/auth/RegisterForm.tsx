@@ -2,6 +2,7 @@
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import React, { ReactNode, useState } from 'react'
+import { checkUsername } from '@/api/user'
 
 interface RegisterFormProps {
   title: string
@@ -39,6 +40,26 @@ export default function RegisterForm({
     phone?: string
   }>({})
 
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false)
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
+    boolean | null
+  >(null)
+
+  // 아이디 중복 확인 (임시: 실제 API 연동 필요)
+  const handleCheckUsername = async () => {
+    setIsCheckingUsername(true)
+    await checkUsername(username)
+      .then((data) => {
+        if (data) {
+          if (data.isAvailable) errors.username = ''
+          setIsUsernameAvailable(data.isAvailable)
+        }
+      })
+      .finally(() => {
+        setIsCheckingUsername(false)
+      })
+  }
+
   const validateForm = () => {
     const newErrors: typeof errors = {}
 
@@ -47,6 +68,13 @@ export default function RegisterForm({
       newErrors.username = '아이디를 입력해주세요'
     } else if (username.length < 4) {
       newErrors.username = '아이디는 4자 이상이어야 합니다'
+    }
+
+    // 아이디 중복검사
+    if (isUsernameAvailable === false) {
+      newErrors.username = '다른 아이디를 입력해주세요'
+    } else if (isUsernameAvailable === null) {
+      newErrors.username = '아이디 중복검사를 해주세요'
     }
 
     // 비밀번호 검증
@@ -66,14 +94,14 @@ export default function RegisterForm({
       newErrors.name = '이름을 입력해주세요'
     }
 
-    // 이메일 검증 (선택 사항이지만 입력한 경우 유효성 검사)
+    // 이메일 검증
     if (!email) {
       newErrors.email = '이메일을 입력해주세요'
     } else if (email && !/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = '유효한 이메일 주소를 입력해주세요'
     }
 
-    // 전화번호 검증 (선택 사항이지만 입력한 경우 유효성 검사)
+    // 전화번호 검증
     if (!phone) {
       newErrors.phone = '전화번호를 입력해주세요'
     } else if (phone && !/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/.test(phone)) {
@@ -82,6 +110,16 @@ export default function RegisterForm({
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
+  }
+
+  const handlePhoneChange = (phone: string) => {
+    const digits = phone.replace(/\D/g, '').slice(0, 11)
+
+    const formatted = digits
+      .replace(/^(\d{3})(\d)/, '$1-$2')
+      .replace(/-(\d{4})(\d)/, '-$1-$2')
+
+    setPhone(formatted)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -113,20 +151,35 @@ export default function RegisterForm({
                   <label htmlFor="username" className="block text-sm mb-2">
                     아이디
                   </label>
-                  <div className="relative">
+                  <div className="flex gap-2">
                     <input
                       type="text"
                       id="username"
                       name="username"
-                      className={`py-3 px-4 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ${
-                        errors.username ? 'border-red-500' : ''
-                      }`}
+                      className={`py-3 px-4 block w-9/12 border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 ${errors.username ? 'border-red-500' : ''}`}
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       disabled={isLoading}
                       required
                     />
+                    <button
+                      type="button"
+                      onClick={handleCheckUsername}
+                      disabled={isCheckingUsername || !username}
+                      className="px-3 py-2 bg-toss-500 hover:bg-toss-700 text-white rounded-lg text-sm w-3/12"
+                    >
+                      {isCheckingUsername ? '확인 중...' : '중복 확인'}
+                    </button>
                   </div>
+                  {isUsernameAvailable !== null && (
+                    <p
+                      className={`text-xs mt-1 ${isUsernameAvailable ? 'text-green-600' : 'text-red-600'}`}
+                    >
+                      {isUsernameAvailable
+                        ? '사용 가능한 아이디입니다'
+                        : '이미 사용 중인 아이디입니다'}
+                    </p>
+                  )}
                   {errors.username && (
                     <p className="text-xs text-red-600 mt-1">
                       {errors.username}
@@ -153,6 +206,7 @@ export default function RegisterForm({
                       required
                     />
                     <button
+                      type={'button'}
                       className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
                       onClick={() => setShowPassword(!showPassword)}
                     >
@@ -249,7 +303,7 @@ export default function RegisterForm({
                 {/* 전화번호 필드 */}
                 <div>
                   <label htmlFor="phone" className="block text-sm mb-2">
-                    전화번호 (선택)
+                    전화번호
                   </label>
                   <div className="relative">
                     <input
@@ -257,11 +311,12 @@ export default function RegisterForm({
                       id="phone"
                       name="phone"
                       placeholder="010-1234-5678"
+                      maxLength={13}
                       className={`py-3 px-4 block w-full border border-gray-300 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ${
                         errors.phone ? 'border-red-500' : ''
                       }`}
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => handlePhoneChange(e.target.value)}
                       disabled={isLoading}
                     />
                   </div>
@@ -272,7 +327,7 @@ export default function RegisterForm({
 
                 <button
                   type="submit"
-                  className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                  className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-toss-500 text-white hover:bg-toss-700 disabled:opacity-50 disabled:pointer-events-none"
                   disabled={isLoading}
                 >
                   {isLoading ? '처리 중...' : '회원가입'}

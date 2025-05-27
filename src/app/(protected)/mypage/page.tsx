@@ -184,7 +184,7 @@ const Page = () => {
       </div>
       <div className="pt-4 border-t border-gray-300 text-center text-sm">
         <button
-          className="inline-block text-white hover:underline font-normal"
+          className="inline-block hover:underline font-normal"
           onClick={() => handleLogout()}
         >
           로그아웃

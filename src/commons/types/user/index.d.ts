@@ -19,3 +19,7 @@ export interface UserState {
   setUser: (user: User) => void
   clearUser: () => void
 }
+
+export interface UsernameCheckResponse {
+  isAvailable: boolean
+}
