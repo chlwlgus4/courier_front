@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosRequestConfig } from 'axios'
 import API from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 
@@ -58,6 +58,29 @@ export async function apiGet<T>(
         axiosErr.response?.data?.message ?? '알 수 없는 오류가 발생했습니다.',
       )
     }
+    return null
+  }
+}
+
+export async function apiRequest<T>(
+  config: AxiosRequestConfig,
+): Promise<T | null> {
+  try {
+    const { data } = await API.request<T>(config)
+    return data
+  } catch (err) {
+    const axiosErr = err as AxiosError<ErrorDTO>
+    const code = axiosErr.response?.data.code
+
+    // 토큰 만료 처리
+    if (code === 'REFRESH_TOKEN_INVALID' || config.url === '/auth/refresh') {
+      useAuthStore.getState().clearAuth()
+    } else {
+      alert(
+        axiosErr.response?.data?.message ?? '알 수 없는 오류가 발생했습니다.',
+      )
+    }
+
     return null
   }
 }
