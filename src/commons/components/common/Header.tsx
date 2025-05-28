@@ -20,7 +20,22 @@ export default function Header() {
   // 로그인, 회원가입 페이지는 헤더 표시 안함
   if (shouldHideHeader) return null
 
-  const pageTitle = PAGE_TITLES[pathname] ?? ''
+  let pageTitle = ''
+
+  if (PAGE_TITLES[pathname]) {
+    pageTitle = PAGE_TITLES[pathname]
+  } else if (
+    pathname.startsWith('/orders/') &&
+    pathname.split('/').length === 3
+  ) {
+    pageTitle = PAGE_TITLES['/orders/[id]'] ?? ''
+  } else if (
+    pathname.startsWith('/overseas/') &&
+    pathname.split('/').length === 3
+  ) {
+    const type = pathname.split('/')[2]
+    pageTitle = PAGE_TITLES[`/overseas/${type}`] ?? ''
+  }
 
   return (
     <header className="bg-white shadow-sm p-4 flex justify-between items-center">

@@ -1,5 +1,5 @@
 import { UsernameCheckResponse, UserResponse } from '@/commons/types/user'
-import { apiGet } from '@/lib/fetcher'
+import { apiGet, apiRequest } from '@/lib/fetcher'
 
 /**
  * 유저 정보 조회
@@ -18,5 +18,19 @@ export async function checkUsername(
 ): Promise<UsernameCheckResponse | null> {
   return await apiGet<UsernameCheckResponse>('/user/check-username', {
     username,
+  })
+}
+
+/**
+ * 회원 이메일 변경
+ * @returns 유저 정보
+ */
+export async function modifyEmail(email: string): Promise<UserResponse | null> {
+  return await apiRequest<UserResponse>({
+    method: 'put',
+    url: '/user/modify-email',
+    data: {
+      email,
+    },
   })
 }

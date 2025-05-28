@@ -1,7 +1,8 @@
 'use client'
 
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { FiLock, FiMail, FiSave, FiUser } from 'react-icons/fi'
 import { User } from '@/commons/types'
 import { apiPost } from '@/lib/fetcher'
@@ -17,6 +18,7 @@ const Page = () => {
   const [newPw, setNewPw] = useState('')
   const [confirmPw, setConfirmPw] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   if (!user) {
     router.replace('/login')
@@ -90,7 +92,7 @@ const Page = () => {
       <button
         onClick={handleProfileSave}
         disabled={loading}
-        className="w-full flex items-center justify-center hover:bg-cyan-700 text-white py-3 rounded-lg transition"
+        className="w-full flex items-center justify-center bg-toss-500 hover:bg-toss-700 text-white py-3 rounded-lg transition"
       >
         <FiSave className="mr-2" /> 저장하기
       </button>
@@ -103,19 +105,32 @@ const Page = () => {
         <label htmlFor={'password'} className="text-gray-700">
           현재 비밀번호
         </label>
-        <input
-          type="password"
-          value={currentPw}
-          onChange={(e) => setCurrentPw(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
-        />
+        <div className={'relative'}>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            value={currentPw}
+            onChange={(e) => setCurrentPw(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          />
+          <button
+            type={'button'}
+            className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <EyeSlashIcon className="h-5 w-5 text-gray-400" />
+            ) : (
+              <EyeIcon className="h-5 w-5 text-gray-400" />
+            )}
+          </button>
+        </div>
       </div>
       <div className="space-y-2">
         <label htmlFor={'newPassword'} className="text-gray-700">
           새 비밀번호
         </label>
         <input
-          type="newPassword"
+          type={showPassword ? 'text' : 'password'}
           value={newPw}
           onChange={(e) => setNewPw(e.target.value)}
           className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -126,7 +141,7 @@ const Page = () => {
           새 비밀번호 확인
         </label>
         <input
-          type="newPasswordChk"
+          type={showPassword ? 'text' : 'password'}
           value={confirmPw}
           onChange={(e) => setConfirmPw(e.target.value)}
           className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
