@@ -178,7 +178,7 @@ export default function ShippingPage() {
         {/* 4. 제출 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium shadow-sm hover:bg-blue-700 transition"
+          className="w-full bg-toss-600 text-white py-3 rounded-lg text-lg font-medium shadow-sm hover:bg-blue-700 transition"
           disabled={!images.length}
         >
           신청하기

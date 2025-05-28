@@ -8,10 +8,7 @@ import Image from 'next/image'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import {
-  ImageSwiperType,
-  PreviewImage,
-} from '@/app/(protected)/overseas/[type]/types/shipping'
+import { ImageSwiperType, PreviewImage } from '@/commons/types'
 
 const ImageSwiper = ({
   images,

@@ -11,6 +11,7 @@ export const PAGE_TITLES: Record<string, string> = {
   '/support': '고객센터',
   '/purchase': '구매대행',
   '/orders': '주문 내역',
+  '/orders/[id]': '주문 상세',
 }
 
 export const SERVICE_NAME: Record<string, string> = {

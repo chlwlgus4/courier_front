@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 export default function OrderPage() {
@@ -83,28 +84,30 @@ export default function OrderPage() {
       </div>
 
       {filteredOrders.map((o) => (
-        <div
-          key={o.id}
-          className="bg-white rounded-lg p-4 shadow-sm flex justify-between items-center"
-        >
-          <div>
-            <p className="font-medium text-gray-800">주문번호: {o.id}</p>
-            <p className="text-sm text-gray-500">날짜: {o.date}</p>
-            <p className="text-sm text-gray-500">
-              경로: {o.origin} → {o.destination}
-            </p>
+        <Link href={`/orders/${o.id}`} key={o.id} passHref>
+          <div
+            key={o.id}
+            className="bg-white rounded-lg p-4 shadow-sm flex justify-between items-center"
+          >
+            <div>
+              <p className="font-medium text-gray-800">주문번호: {o.id}</p>
+              <p className="text-sm text-gray-500">날짜: {o.date}</p>
+              <p className="text-sm text-gray-500">
+                경로: {o.origin} → {o.destination}
+              </p>
+            </div>
+            <div className="text-right">
+              <p
+                className={`${o.status === '완료' ? 'text-green-500' : 'text-blue-500'} font-semibold`}
+              >
+                {o.status}
+              </p>
+              <p className="mt-1 font-medium text-gray-800">
+                ₩{o.price.toLocaleString()}
+              </p>
+            </div>
           </div>
-          <div className="text-right">
-            <p
-              className={`${o.status === '완료' ? 'text-green-500' : 'text-blue-500'} font-semibold`}
-            >
-              {o.status}
-            </p>
-            <p className="mt-1 font-medium text-gray-800">
-              ₩{o.price.toLocaleString()}
-            </p>
-          </div>
-        </div>
+        </Link>
       ))}
     </div>
   )
