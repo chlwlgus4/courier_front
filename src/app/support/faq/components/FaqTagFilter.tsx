@@ -2,14 +2,19 @@
 
 import { useEffect, useState } from 'react'
 import { FaqTagFilterProps, Tag } from '@/commons/types'
-import { apiGet } from '@/lib/fetcher'
+import { apiRequest } from '@/lib/fetcher'
 
 const FaqTagFilter = ({ onSelectTag }: FaqTagFilterProps) => {
   const [tags, setTags] = useState<Tag[]>([])
   const [selected, setSelected] = useState<string | null>(null)
 
   useEffect(() => {
-    apiGet<Tag[]>('/faqs/tags').then((data) => {
+    apiRequest<Tag[]>({
+      method: 'get',
+      url: '/faqs/tags',
+      spinner: false,
+    }).then((data) => {
+      console.log(data)
       if (data) setTags(data)
     })
   }, [])

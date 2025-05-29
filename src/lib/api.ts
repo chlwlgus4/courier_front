@@ -20,7 +20,7 @@ API.interceptors.request.use(
   (config) => {
     const apiConfig = config as ApiRequestConfig
 
-    if (apiConfig.spinner) useLoadingStore.getState().setLoading(true)
+    if (apiConfig?.spinner) useLoadingStore.getState().setLoading(true)
 
     const token = useAuthStore.getState().accessToken
     if (token && config.headers) {
@@ -29,7 +29,8 @@ API.interceptors.request.use(
     return config
   },
   (error) => {
-    useLoadingStore.getState().setLoading(false)
+    const originalReq = error.config as ApiRequestConfig
+    if (originalReq?.spinner) useLoadingStore.getState().setLoading(false)
     return error
   },
 )
@@ -55,14 +56,14 @@ const EXCLUDED_PATHS = ['/auth/login', '/auth/register', '/auth/refresh']
 API.interceptors.response.use(
   (res) => {
     const apiConfig = res.config as ApiRequestConfig
-    if (apiConfig.spinner) useLoadingStore.getState().setLoading(false)
+    if (apiConfig?.spinner) useLoadingStore.getState().setLoading(false)
     return res
   },
   async (error: AxiosError) => {
     const originalReq = error.config as ApiRequestConfig
-    if (originalReq.spinner) useLoadingStore.getState().setLoading(false)
+    if (originalReq?.spinner) useLoadingStore.getState().setLoading(false)
 
-    const reqUrl = originalReq.url ?? ''
+    const reqUrl = originalReq?.url ?? ''
 
     if (
       error.response?.status === 401 &&

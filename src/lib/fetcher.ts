@@ -73,7 +73,7 @@ export async function apiRequest<T>(
     ...config,
     spinner: config.spinner !== false,
   }
-
+  console.log('configWithDefaults: ', configWithDefaults)
   try {
     const { data } = await API.request<T>(configWithDefaults)
     return data

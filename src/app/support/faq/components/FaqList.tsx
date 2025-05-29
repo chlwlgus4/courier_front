@@ -13,9 +13,12 @@ const FaqList = ({ slug }: FaqListProps) => {
     apiRequest<Faq[]>({
       method: 'get',
       url: '/faqs',
-      data: slug !== null ? { tag: slug } : {},
+      params: { tag: slug },
       spinner: false,
-    }).then((data) => data && setFaqs(data))
+    }).then((data) => {
+      console.log(data)
+      if (data) setFaqs(data)
+    })
   }, [slug])
 
   return (
