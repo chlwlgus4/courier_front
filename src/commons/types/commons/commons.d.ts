@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from 'axios'
+
 export interface SearchBarProps {
   placeholder?: string
   bgColor?: string
@@ -16,4 +18,9 @@ export interface LoadingContextValue {
 export interface LoadingState {
   loading: boolean
   setLoading: (v: boolean) => void
+}
+
+export interface ApiRequestConfig extends AxiosRequestConfig {
+  _retry?: boolean
+  spinner?: boolean
 }

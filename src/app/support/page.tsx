@@ -7,7 +7,7 @@ import { SearchBar } from '@/commons/components/common/SearchBar'
 // 탭과 카테고리 정의 (원하는 만큼 늘려서 사용)
 const TABS = ['홈', 'FAQ', '문의내역', '고객의 소리', '공지'] as const
 
-export default function SupportPage() {
+const Page = () => {
   const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>('홈')
 
   return (
@@ -76,3 +76,5 @@ export default function SupportPage() {
     </div>
   )
 }
+
+export default Page

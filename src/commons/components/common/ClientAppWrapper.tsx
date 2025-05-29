@@ -2,7 +2,6 @@
 
 import React, { ReactNode } from 'react'
 import Spinner from '@/commons/components/common/Spinner' // 또는 이전에 제안드린 로딩 스토어
-import AuthInitializer from '@/hook/useInitializeAuth'
 import useLoadingStore from '@/store/loadingStore'
 
 export default function ClientAppWrapper({
@@ -15,7 +14,6 @@ export default function ClientAppWrapper({
 
   return (
     <>
-      <AuthInitializer /> {/* 새로고침 시 refreshToken 으로 토큰 재발행 */}
       {loading && <Spinner />}
       {children}
     </>

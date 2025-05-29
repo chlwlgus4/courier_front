@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import React from 'react'
 import BackgroundLayout from '@/commons/components/common/BackgroundLayout'
+import ClientAppWrapper from '@/commons/components/common/ClientAppWrapper'
 import Header from '@/commons/components/common/Header'
 import NavigationBar from '@/commons/components/common/NavigationBar'
 
@@ -31,10 +32,12 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <BackgroundLayout>
           <Header />
-          <div className={''}>
-            <main className={'mb-15 '}>{children}</main>
-            <NavigationBar />
-          </div>
+          <ClientAppWrapper>
+            <div className={''}>
+              <main className={'mb-15 '}>{children}</main>
+              <NavigationBar />
+            </div>
+          </ClientAppWrapper>
         </BackgroundLayout>
       </body>
     </html>

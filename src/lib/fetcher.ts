@@ -8,6 +8,10 @@ interface ErrorDTO {
   path: string
 }
 
+interface ApiRequestConfig extends AxiosRequestConfig {
+  spinner?: boolean
+}
+
 /**
  * POST 요청 유틸
  * @param url  호출할 엔드포인트 (ex: '/api/faqs')
@@ -63,10 +67,15 @@ export async function apiGet<T>(
 }
 
 export async function apiRequest<T>(
-  config: AxiosRequestConfig,
+  config: ApiRequestConfig,
 ): Promise<T | null> {
+  const configWithDefaults: ApiRequestConfig = {
+    ...config,
+    spinner: config.spinner !== false,
+  }
+
   try {
-    const { data } = await API.request<T>(config)
+    const { data } = await API.request<T>(configWithDefaults)
     return data
   } catch (err) {
     const axiosErr = err as AxiosError<ErrorDTO>

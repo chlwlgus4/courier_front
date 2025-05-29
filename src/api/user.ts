@@ -1,12 +1,15 @@
 import { UsernameCheckResponse, UserResponse } from '@/commons/types/user'
-import { apiGet, apiRequest } from '@/lib/fetcher'
+import { apiRequest } from '@/lib/fetcher'
 
 /**
  * 유저 정보 조회
  * @returns 유저 정보
  */
 export async function getUser(): Promise<UserResponse | null> {
-  return await apiGet<UserResponse>('/user/me')
+  return await apiRequest<UserResponse>({
+    method: 'get',
+    url: '/user/me',
+  })
 }
 
 /**
@@ -16,8 +19,12 @@ export async function getUser(): Promise<UserResponse | null> {
 export async function checkUsername(
   username: string,
 ): Promise<UsernameCheckResponse | null> {
-  return await apiGet<UsernameCheckResponse>('/user/check-username', {
-    username,
+  return await apiRequest<UsernameCheckResponse>({
+    method: 'get',
+    url: '/user/check-username',
+    data: {
+      username,
+    },
   })
 }
 

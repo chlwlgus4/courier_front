@@ -3,16 +3,19 @@
 import { useEffect, useState } from 'react'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { Faq, FaqListProps } from '@/app/support/faq/types/faq'
-import { apiGet } from '@/lib/fetcher'
+import { apiRequest } from '@/lib/fetcher'
 
 const FaqList = ({ slug }: FaqListProps) => {
   const [faqs, setFaqs] = useState<Faq[]>([])
   const [openId, setOpenId] = useState<number | null>(null)
 
   useEffect(() => {
-    apiGet<Faq[]>('/faqs', slug !== null ? { tag: slug } : {}).then(
-      (data) => data && setFaqs(data),
-    )
+    apiRequest<Faq[]>({
+      method: 'get',
+      url: '/faqs',
+      data: slug !== null ? { tag: slug } : {},
+      spinner: false,
+    }).then((data) => data && setFaqs(data))
   }, [slug])
 
   return (

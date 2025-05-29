@@ -1,13 +1,8 @@
-// lib/api.ts
-import axios, { AxiosError, AxiosRequestConfig } from 'axios'
-import { AuthResponse } from '@/commons/types'
+import axios, { AxiosError } from 'axios'
+import { ApiRequestConfig, AuthResponse } from '@/commons/types'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
 import useLoadingStore from '@/store/loadingStore'
-
-interface RetryableRequestConfig extends AxiosRequestConfig {
-  _retry?: boolean
-}
 
 const API = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + '/api',
@@ -23,7 +18,10 @@ export function setTokens(accessToken: string) {
 // — 요청 인터셉터: 항상 최신 accessToken 사용 —
 API.interceptors.request.use(
   (config) => {
-    useLoadingStore.getState().setLoading(true)
+    const apiConfig = config as ApiRequestConfig
+
+    if (apiConfig.spinner) useLoadingStore.getState().setLoading(true)
+
     const token = useAuthStore.getState().accessToken
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
@@ -56,12 +54,14 @@ const EXCLUDED_PATHS = ['/auth/login', '/auth/register', '/auth/refresh']
 
 API.interceptors.response.use(
   (res) => {
-    useLoadingStore.getState().setLoading(false)
+    const apiConfig = res.config as ApiRequestConfig
+    if (apiConfig.spinner) useLoadingStore.getState().setLoading(false)
     return res
   },
   async (error: AxiosError) => {
-    useLoadingStore.getState().setLoading(false)
-    const originalReq = error.config as RetryableRequestConfig
+    const originalReq = error.config as ApiRequestConfig
+    if (originalReq.spinner) useLoadingStore.getState().setLoading(false)
+
     const reqUrl = originalReq.url ?? ''
 
     if (
