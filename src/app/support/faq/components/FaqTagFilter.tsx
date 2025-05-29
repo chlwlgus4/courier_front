@@ -13,10 +13,7 @@ const FaqTagFilter = ({ onSelectTag }: FaqTagFilterProps) => {
       method: 'get',
       url: '/faqs/tags',
       spinner: false,
-    }).then((data) => {
-      console.log(data)
-      if (data) setTags(data)
-    })
+    }).then((data) => data && setTags(data))
   }, [])
 
   const handleClick = (slug: string | null) => {

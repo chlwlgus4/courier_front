@@ -30,7 +30,6 @@ export async function login(
  */
 export async function logout(): Promise<AuthResponse | null> {
   const data = await apiPost<AuthResponse>('/auth/logout')
-  console.log(data)
 
   useAuthStore.getState().clearAuth()
   useUserStore.getState().clearUser()
