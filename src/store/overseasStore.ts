@@ -15,5 +15,8 @@ export const overseasStore = create<OverseasState>((set) => ({
     notes: '',
     insuranceValue: 0,
   },
-  setOverseas: (overseas) => set({ overseas }),
+  setOverseas: (newOverseas) =>
+    set((state) => ({
+      overseas: state.overseas ? { ...state.overseas, ...newOverseas } : null,
+    })),
 }))
