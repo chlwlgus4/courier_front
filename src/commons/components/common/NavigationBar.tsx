@@ -3,12 +3,13 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import { FiClipboard, FiDollarSign, FiHome, FiUser } from 'react-icons/fi'
+import { AiFillCalculator, AiFillHome, AiFillProfile } from 'react-icons/ai'
+import { FiUser } from 'react-icons/fi'
 
 const navItems = [
-  { label: '홈', icon: FiHome, path: '/' },
-  { label: '견적', icon: FiDollarSign, path: '/cost-calculator' },
-  { label: '주문', icon: FiClipboard, path: '/orders' },
+  { label: '홈', icon: AiFillHome, path: '/' },
+  { label: '견적', icon: AiFillCalculator, path: '/cost-calculator' },
+  { label: '주문', icon: AiFillProfile, path: '/orders' },
   { label: '내 정보', icon: FiUser, path: '/mypage' },
 ]
 

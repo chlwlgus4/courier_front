@@ -4,6 +4,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FiLock, FiMail, FiSave, FiUser } from 'react-icons/fi'
+import { modifyEmail } from '@/api/user'
 import { User } from '@/commons/types'
 import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
@@ -27,15 +28,9 @@ const Page = () => {
 
   // 2) 프로필 수정
   const handleProfileSave = async () => {
-    setLoading(true)
-    const updated = await apiPost<User>('/users/me', {
-      email: form?.email,
-    })
-    setLoading(false)
-    if (updated) {
-      setUser(updated)
-      alert('프로필이 저장되었습니다.')
-    }
+    if (!form?.email) return
+    const data = await modifyEmail(form.email)
+    if (data) setUser(data.user)
   }
 
   // 3) 비밀번호 변경

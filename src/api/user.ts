@@ -27,7 +27,7 @@ export async function checkUsername(
  */
 export async function modifyEmail(email: string): Promise<UserResponse | null> {
   return await apiRequest<UserResponse>({
-    method: 'put',
+    method: 'patch',
     url: '/user/modify-email',
     data: {
       email,
