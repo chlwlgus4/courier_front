@@ -1,9 +1,11 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { Country } from '@/commons/types'
 
-const DutyContent = ({ country }: { country: string }) => {
+const DutyContent = ({ country }: { country: Country | null }) => {
   const router = useRouter()
+
   const onAgree = () => {
     router.push(`/overseas/shipping`)
   }
@@ -11,13 +13,11 @@ const DutyContent = ({ country }: { country: string }) => {
   return (
     <div className="px-4 py-6 space-y-4">
       <div className="bg-gray-100 p-4 rounded-lg">
-        {/* 서버에서 불러온 국가별 주의사항 */}
-        {/* 예: 관세율, 금지 물품 등 */}
-        {country} 안내 문구…
+        {country?.name} 안내 문구…
       </div>
       <button
         onClick={onAgree}
-        className="w-full bg-blue-600 text-white py-3 rounded-lg"
+        className="w-full bg-toss-500 hover:bg-toss-700 text-white py-3 rounded-lg"
       >
         동의하고 다음
       </button>

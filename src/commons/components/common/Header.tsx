@@ -16,12 +16,9 @@ export default function Header() {
   }, [pathname])
 
   const hideHeaderPaths = ['/login', '/register']
-  const shouldHideHeader = hideHeaderPaths.includes(pathname)
-  // 로그인, 회원가입 페이지는 헤더 표시 안함
-  if (shouldHideHeader) return null
+  if (hideHeaderPaths.includes(pathname)) return null
 
   let pageTitle = ''
-
   if (PAGE_TITLES[pathname]) {
     pageTitle = PAGE_TITLES[pathname]
   } else if (
@@ -40,11 +37,11 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm p-4 flex justify-between items-center">
       {showBack ? (
-        <div className={'flex items-center gap-3'}>
+        <div className="flex items-center gap-3">
           <button
             onClick={() => router.back()}
-            className="md:hidden text-gray-600 hover:text-gray-900 transition cursor-pointer"
             aria-label="뒤로가기"
+            className="md:hidden flex items-center justify-center w-6 h-6 text-gray-600 hover:text-gray-900 transition relative top-[-3px]"
           >
             <svg
               className="w-6 h-6"
@@ -60,16 +57,20 @@ export default function Header() {
               />
             </svg>
           </button>
-          <h1 className="text-xl font-bold text-gray-800">{pageTitle}</h1>
+          <h1 className="text-xl font-bold text-gray-800 leading-none">
+            {pageTitle}
+          </h1>
         </div>
       ) : (
-        <h1 className="text-2xl font-bold text-gray-800">Courier</h1>
+        <h1 className="text-2xl font-bold text-gray-800 leading-none">
+          Courier
+        </h1>
       )}
       <nav className="flex space-x-6">
         <Link href="/">
           <button className="text-gray-600 hover:text-gray-800">홈</button>
         </Link>
-        <Link href="/">
+        <Link href="/orders">
           <button className="text-gray-600 hover:text-gray-800">내역</button>
         </Link>
         <Link href="/mypage">

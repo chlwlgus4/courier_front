@@ -56,7 +56,8 @@ const Page = () => {
         <div className="bg-white p-4 rounded-xl shadow">
           {/* TODO: 실제 주문 정보 */}
           <p>서비스: {SERVICE_NAME[overseas?.type as string]}</p>
-          <p>선택 국가: {overseas?.country}</p>
+          <p>출발지: {overseas?.originCountry?.name}</p>
+          <p>도착지: {overseas?.destCountry?.name}</p>
           <p>총 무게: {overseas?.weight}kg</p>
           <p>보험 금액: {overseas?.insuranceValue}</p>
         </div>
@@ -91,7 +92,7 @@ const Page = () => {
 
       <button
         onClick={() => router.push('/')}
-        className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium shadow hover:bg-blue-700 transition"
+        className="w-full bg-toss-600 text-white py-3 rounded-lg font-medium shadow hover:bg-toss-700 transition"
       >
         다시 신청하기
       </button>

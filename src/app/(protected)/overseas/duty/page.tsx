@@ -10,12 +10,12 @@ const DutyPage = () => {
   const router = useRouter()
 
   useEffect(() => {
-    if (!overseas?.country) router.back()
+    if (!overseas?.originCountry || !overseas?.destCountry) router.back()
   }, [overseas, router])
 
-  if (!overseas?.country) return null
+  if (!overseas?.originCountry || !overseas?.destCountry) return null
 
-  return <DutyContent country={overseas?.country} />
+  return <DutyContent country={overseas.destCountry} />
 }
 
 export default DutyPage

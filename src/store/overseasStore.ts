@@ -4,7 +4,12 @@ import { OverseasState } from '@/app/(protected)/overseas/types/overseas'
 export const overseasStore = create<OverseasState>((set) => ({
   overseas: {
     type: '',
-    country: '',
+    originCountry: null,
+    originCity: '',
+    originPostal: '',
+    destCountry: null,
+    destCity: '',
+    destPostal: '',
     weight: 0,
     images: [],
     notes: '',
