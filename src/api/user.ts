@@ -34,3 +34,21 @@ export async function modifyEmail(email: string): Promise<UserResponse | null> {
     },
   })
 }
+
+/**
+ * 비밀번호 변경
+ * @returns void
+ */
+export async function modifyPassword(
+  oldPassword: string,
+  newPassword: string,
+): Promise<void> {
+  await apiRequest<void>({
+    method: 'post',
+    url: '/user/password-change',
+    data: {
+      oldPassword,
+      newPassword,
+    },
+  })
+}

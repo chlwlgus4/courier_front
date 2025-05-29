@@ -4,9 +4,8 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FiLock, FiMail, FiSave, FiUser } from 'react-icons/fi'
-import { modifyEmail } from '@/api/user'
+import { modifyEmail, modifyPassword } from '@/api/user'
 import { User } from '@/commons/types'
-import { apiPost } from '@/lib/fetcher'
 import { useAuthStore } from '@/store/authStore'
 import { useUserStore } from '@/store/userStore'
 
@@ -43,17 +42,16 @@ const Page = () => {
       alert('새 비밀번호가 일치하지 않습니다.')
       return
     }
-    setLoading(true)
-    const res = await apiPost('/auth/change-password', {
-      currentPassword: currentPw,
-      newPassword: newPw,
-    })
-    setLoading(false)
-    if (res) {
+
+    try {
+      await modifyPassword(currentPw, newPw)
       alert('비밀번호가 변경되었습니다. 다시 로그인해주세요.')
       clearAuth()
-      router.replace('/login')
+    } catch (e) {
+      console.error(e)
     }
+
+    // router.replace('/login')
   }
 
   return (
