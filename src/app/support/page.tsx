@@ -36,7 +36,7 @@ const Page = () => {
       </header>
 
       {/* 검색바 */}
-      <div className="mt-3">
+      <div className="mt-3 px-4">
         <SearchBar
           placeholder="궁금한 점을 검색해보세요"
           borderColor={'border-gray-400'}
