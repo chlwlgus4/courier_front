@@ -4,11 +4,14 @@ import Link from 'next/link'
 import React from 'react'
 import { FaBox, FaGlobe, FaShoppingCart } from 'react-icons/fa'
 import FAQSection from './FAQSection'
+import { SearchBar } from '@/commons/components/common/SearchBar'
 import ServiceCard from '@/commons/components/home/ServiceCard'
 
 const HomePage = () => {
   return (
     <div className="flex-1 p-4 space-y-6">
+      <SearchBar placeholder={'운송장번호 조회'} />
+
       <section className="bg-toss-100 rounded-2xl shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-2">
           비교 견적으로 가장 저렴하게
