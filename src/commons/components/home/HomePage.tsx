@@ -10,7 +10,7 @@ import ServiceCard from '@/commons/components/home/ServiceCard'
 const HomePage = () => {
   return (
     <div className="flex-1 p-4 space-y-6">
-      <SearchBar placeholder={'운송장번호 조회'} />
+      <SearchBar placeholder={'운송장번호를 입력해주세요'} />
 
       <section className="bg-toss-100 rounded-2xl shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-2">
@@ -25,7 +25,7 @@ const HomePage = () => {
       {/* 2×2 메뉴 그리드 */}
       <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Link href={'/overseas/country'}>
-          <ServiceCard title="해외배송 매칭" icon={<FaGlobe />} />
+          <ServiceCard title="해외배송" icon={<FaGlobe />} />
         </Link>
         <Link href={'/purchase'}>
           <ServiceCard title="구매대행" icon={<FaShoppingCart />} />
