@@ -63,7 +63,7 @@ export default function Header() {
         </div>
       ) : (
         <h1 className="text-2xl font-bold text-gray-800 leading-none">
-          Courier
+          Shoong
         </h1>
       )}
       <nav className="flex space-x-6">
