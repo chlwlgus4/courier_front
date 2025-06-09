@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -62,9 +63,14 @@ export default function Header() {
           </h1>
         </div>
       ) : (
-        <h1 className="text-2xl font-bold text-gray-800 leading-none">
-          Shoong
-        </h1>
+        <Link href={'/'}>
+          <Image
+            src={'/logos/shoong-logo-color.png'}
+            alt={'logo'}
+            width={100}
+            height={40}
+          />
+        </Link>
       )}
       <nav className="flex space-x-6">
         <Link href="/">
