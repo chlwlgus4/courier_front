@@ -2,7 +2,8 @@
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { ReactNode, useState } from 'react'
+import Image from 'next/image'
+import React, { ReactNode, useState } from 'react'
 
 interface AuthFormProps {
   title: string
@@ -24,8 +25,13 @@ const LoginForm = ({
   return (
     <div className="min-h-screen">
       <div className="w-full md:max-w-md mx-auto mt-20 p-8 bg-white rounded-2xl md:shadow-lg">
-        <h1 className="text-2xl font-semibold text-center mb-2">{title}</h1>
-        <p className="text-center text-gray-500 mb-6">{description}</p>
+        <Image
+          src={'/logos/shoong-logo-color.png'}
+          alt={'logo'}
+          width={200}
+          height={200}
+          className={'mx-auto mb-10'}
+        />
         <form
           onSubmit={(e) => {
             e.preventDefault()
