@@ -1,8 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useEffect } from 'react'
+import { getOrder } from '@/api/orders'
 import { SERVICE_NAME } from '@/config'
 import { overseasStore } from '@/store/overseasStore'
 
@@ -18,6 +19,14 @@ interface CourierMatch {
 const Page = () => {
   const { overseas } = overseasStore()
   const router = useRouter()
+  const params = useSearchParams()
+
+  useEffect(() => {
+    const id = Number(params.get('id'))
+    if (!isNaN(id) && id > 0) {
+      getOrder(id)
+    }
+  }, [params])
 
   if (!overseas?.images) {
     router.back()

@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { saveOrders } from '@/api/orders'
 import ImageSwiper from '@/app/(protected)/overseas/components/ImageSwiper'
 import { overseasStore } from '@/store/overseasStore'
 
@@ -61,11 +62,6 @@ const ShippingPage = () => {
     form.append('notes', notes as string)
     images.forEach((file) => form.append('images', file, file.name))
 
-    // TODO: 파일 업로드, weight, notes 함께 API 호출
-    console.log('무게:', weight, 'kg')
-    console.log('파일:', images)
-    console.log('추가 메모:', notes)
-
     setOverseas({
       ...overseas,
       type: type as string,
@@ -74,8 +70,26 @@ const ShippingPage = () => {
       weight: Number(weight),
       insuranceValue: Number(insuranceValue),
     })
-
-    router.push('/overseas/result')
+    console.log(router)
+    console.log('overseas:', overseas)
+    const res = await saveOrders({
+      shippingTypeCode: overseas?.type ?? 'OVERSEAS',
+      weight: String(overseas?.weight),
+      insuranceValue: String(overseas?.insuranceValue),
+      originCountry: String(overseas?.originCountry),
+      originPostalCode: String(overseas?.originPostal),
+      originAddress: 'test',
+      originAddressDetail: 'test',
+      destinationCountry: 'test',
+      destinationPostalCode: String(overseas?.destPostal),
+      destinationAddress: 'test',
+      destinationAddressDetail: 'test',
+      notes: 'test',
+      images: overseas?.images,
+    })
+    if (res?.status === 200) {
+      router.push(`/overseas/result?id=${res?.data?.id}`)
+    }
   }
 
   return (

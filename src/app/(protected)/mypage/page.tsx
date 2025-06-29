@@ -27,7 +27,7 @@ const Page = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        const data = await getUser()
+        const { data } = await getUser()
         if (data?.user) setUser(data.user)
         else router.replace('/login')
       } catch (e) {

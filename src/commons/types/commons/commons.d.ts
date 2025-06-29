@@ -24,3 +24,8 @@ export interface ApiRequestConfig extends AxiosRequestConfig {
   _retry?: boolean
   spinner?: boolean
 }
+
+export interface ApiResponse<T> {
+  data: T | null
+  status: number
+}

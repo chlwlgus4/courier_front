@@ -1,4 +1,5 @@
 import { AxiosError, AxiosRequestConfig } from 'axios'
+import { ApiResponse } from '@/commons/types'
 import API from '@/lib/api'
 import { useAuthStore } from '@/store/authStore'
 
@@ -68,15 +69,15 @@ export async function apiGet<T>(
 
 export async function apiRequest<T>(
   config: ApiRequestConfig,
-): Promise<T | null> {
+): Promise<ApiResponse<T> | null> {
   const configWithDefaults: ApiRequestConfig = {
     ...config,
     spinner: config.spinner !== false,
   }
 
   try {
-    const { data } = await API.request<T>(configWithDefaults)
-    return data
+    const { data, status } = await API.request<T>(configWithDefaults)
+    return { data, status }
   } catch (err) {
     const axiosErr = err as AxiosError<ErrorDTO>
     const code = axiosErr.response?.data.code

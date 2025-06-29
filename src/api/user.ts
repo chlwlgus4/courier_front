@@ -1,3 +1,4 @@
+import { ApiResponse } from '@/commons/types'
 import { UsernameCheckResponse, UserResponse } from '@/commons/types/user'
 import { apiRequest } from '@/lib/fetcher'
 
@@ -5,7 +6,7 @@ import { apiRequest } from '@/lib/fetcher'
  * 유저 정보 조회
  * @returns 유저 정보
  */
-export async function getUser(): Promise<UserResponse | null> {
+export async function getUser(): Promise<ApiResponse<UserResponse> | null> {
   return await apiRequest<UserResponse>({
     method: 'get',
     url: '/user/me',
@@ -18,7 +19,7 @@ export async function getUser(): Promise<UserResponse | null> {
  */
 export async function checkUsername(
   username: string,
-): Promise<UsernameCheckResponse | null> {
+): Promise<ApiResponse<UsernameCheckResponse> | null> {
   return await apiRequest<UsernameCheckResponse>({
     method: 'get',
     url: '/user/check-username',
@@ -32,7 +33,9 @@ export async function checkUsername(
  * 회원 이메일 변경
  * @returns 유저 정보
  */
-export async function modifyEmail(email: string): Promise<UserResponse | null> {
+export async function modifyEmail(
+  email: string,
+): Promise<ApiResponse<UserResponse> | null> {
   return await apiRequest<UserResponse>({
     method: 'patch',
     url: '/user/modify-email',

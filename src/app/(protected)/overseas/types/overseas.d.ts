@@ -6,7 +6,7 @@ export interface OverseasState {
 }
 
 export type Overseas = {
-  type?: string
+  type: string
   originCountry: Country | null
   originCity: string
   originPostal: string
