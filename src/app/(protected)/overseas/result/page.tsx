@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { getOrder } from '@/api/orders'
-import { SERVICE_NAME } from '@/config'
+import ImageSwiper from '@/app/(protected)/overseas/components/ImageSwiper'
+import { Order } from '@/commons/types/orders'
 import { overseasStore } from '@/store/overseasStore'
 
 // (임시) 매칭 결과 타입 정의
@@ -21,10 +22,14 @@ const Page = () => {
   const router = useRouter()
   const params = useSearchParams()
 
+  const [order, setOrder] = React.useState<Order | null>(null)
+
   useEffect(() => {
     const id = Number(params.get('id'))
     if (!isNaN(id) && id > 0) {
-      getOrder(id)
+      getOrder(id).then(({ data, status }) => {
+        if (status == 200) setOrder(data)
+      })
     }
   }, [params])
 
@@ -64,14 +69,16 @@ const Page = () => {
         <h2 className="text-lg font-semibold">주문 정보</h2>
         <div className="bg-white p-4 rounded-xl shadow">
           {/* TODO: 실제 주문 정보 */}
-          <p>서비스: {SERVICE_NAME[overseas?.type as string]}</p>
-          <p>출발지: {overseas?.originCountry?.name}</p>
-          <p>도착지: {overseas?.destCountry?.name}</p>
-          <p>총 무게: {overseas?.weight}kg</p>
-          <p>보험 금액: {overseas?.insuranceValue}</p>
+          <p>서비스: {order?.shippingType}</p>
+          <p>출발지: {order?.originCountry}</p>
+          <p>도착지: {order?.destinationCountry}</p>
+          <p>총 무게: {order?.weight}kg</p>
+          <p>보험 금액: {order?.insuranceValue.toLocaleString()}원</p>
         </div>
+        {order?.images.length && (
+          <ImageSwiper images={order.images.map((img) => img.base64Data)} />
+        )}
       </section>
-
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">추천 쿠리어</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

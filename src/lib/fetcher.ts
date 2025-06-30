@@ -69,7 +69,7 @@ export async function apiGet<T>(
 
 export async function apiRequest<T>(
   config: ApiRequestConfig,
-): Promise<ApiResponse<T> | null> {
+): Promise<ApiResponse<T>> {
   const configWithDefaults: ApiRequestConfig = {
     ...config,
     spinner: config.spinner !== false,
@@ -85,7 +85,7 @@ export async function apiRequest<T>(
     // 토큰 만료 처리
     if (code === 'REFRESH_TOKEN_INVALID' || config.url === '/auth/refresh') {
       useAuthStore.getState().clearAuth()
-      return null
+      throw axiosErr
     } else {
       alert(
         axiosErr.response?.data?.message ?? '알 수 없는 오류가 발생했습니다.',

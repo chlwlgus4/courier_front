@@ -17,24 +17,47 @@ const ImageSwiper = ({
 }: Readonly<ImageSwiperType>) => {
   const swiperRef = useRef<any>(null)
 
-  const previewImages: PreviewImage[] = useMemo(
-    () =>
-      images.map((file) => ({
-        file,
-        preview: URL.createObjectURL(file),
-      })),
-    [images],
-  )
+  const previewImages: PreviewImage[] = useMemo(() => {
+    return images?.map((item, index) => {
+      // File 객체인 경우
+      if (item instanceof File) {
+        return {
+          file: item,
+          preview: URL.createObjectURL(item),
+        }
+      }
+      // base64 문자열인 경우
+      else if (typeof item === 'string') {
+        return {
+          preview: item.startsWith('data:')
+            ? item
+            : `data:image/jpeg;base64,${item}`,
+          id: index,
+        }
+      }
+      // 기본값 (오류 방지)
+      else {
+        return {
+          preview: '',
+          id: index,
+        }
+      }
+    })
+  }, [images])
 
   useEffect(() => {
     return () => {
-      previewImages.forEach((img) => URL.revokeObjectURL(img.preview))
+      previewImages?.forEach((img) => {
+        if (img.file && img.preview.startsWith('blob:')) {
+          URL.revokeObjectURL(img.preview)
+        }
+      })
     }
   }, [previewImages])
 
   const imageList = useMemo(
     () =>
-      previewImages.map((img, idx) => (
+      previewImages?.map((img, idx) => (
         <SwiperSlide key={img.preview}>
           <div className="relative group w-full h-60">
             <Image
