@@ -1,6 +1,7 @@
 import { ApiResponse } from '@/commons/types'
 import {
   OrderGetResponse,
+  OrderListResponse,
   OrdersSaveRequest,
   OrdersSaveResponse,
 } from '@/commons/types/orders'
@@ -25,5 +26,14 @@ export async function getOrder(
   return await apiRequest<OrderGetResponse>({
     method: 'get',
     url: `/orders/${id}`,
+  })
+}
+
+export async function getOrders(
+  params: URLSearchParams,
+): Promise<ApiResponse<OrderListResponse>> {
+  return await apiRequest<OrderListResponse>({
+    method: 'get',
+    url: `/orders?${params}`,
   })
 }

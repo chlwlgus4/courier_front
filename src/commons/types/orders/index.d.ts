@@ -56,3 +56,11 @@ export enum OrderStatus {
   DELIVERED = 'DELIVERED',
   CANCELLED = 'CANCELLED',
 }
+
+export interface OrderListResponse {
+  orders: OrderGetResponse[]
+  hasNext: boolean
+  totalElements: number
+  page: number
+  size: number
+}
