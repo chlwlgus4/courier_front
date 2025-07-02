@@ -27,12 +27,11 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode
-  params: Promise<{ eaDir?: string }>
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" dir={'ltr'}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <BackgroundLayout>
           <Header />
