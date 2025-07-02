@@ -6,9 +6,9 @@ import useLoadingStore from '@/store/loadingStore'
 
 export default function ClientAppWrapper({
   children,
-}: Readonly<{
+}: {
   children: ReactNode
-}>) {
+}) {
   // 이제 훅을 안전하게 쓸 수 있습니다!
   const loading = useLoadingStore((s) => s.loading)
 
