@@ -25,13 +25,11 @@ export const metadata: Metadata = {
   },
 }
 
-// 기본 Next.js 레이아웃 타입 사용
-interface RootLayoutProps {
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode
-  params?: Promise<any>
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+}) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
