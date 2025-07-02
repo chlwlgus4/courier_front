@@ -4,9 +4,9 @@ import ProtectedLayout from '@/hook/ProtectedLayout'
 
 export default function ProtectedGroupLayout({
   children,
-}: Readonly<{
+}: {
   children: ReactNode
-}>) {
+}) {
   return (
     <ProtectedLayout>
       <main className="mb-15">{children}</main>
