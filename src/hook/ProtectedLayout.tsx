@@ -4,11 +4,7 @@ import { ReactNode, useEffect } from 'react'
 import AuthInitializer from '@/hook/useInitializeAuth'
 import { useAuthStore } from '@/store/authStore'
 
-export default function ProtectedLayout({
-  children,
-}: Readonly<{
-  children: ReactNode
-}>) {
+export default function ProtectedLayout({ children }: { children: ReactNode }) {
   const { accessToken, initialized } = useAuthStore()
   const router = useRouter()
 
