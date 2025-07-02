@@ -25,20 +25,13 @@ export const metadata: Metadata = {
   },
 }
 
-interface RootLayoutProps {
-  children: React.ReactNode
-  params: Params
-}
-
-type Params = Promise<{ locale: string; eaDir: string }>
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
-  params,
-}: RootLayoutProps) {
-  const { locale, eaDir } = await params
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang={locale} dir={eaDir}>
+    <html lang="ko" dir="ltr">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <BackgroundLayout>
           <Header />
