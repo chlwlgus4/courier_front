@@ -4,7 +4,6 @@ import ProtectedLayout from '@/hook/ProtectedLayout'
 
 interface ProtectedGroupLayoutProps {
   children: ReactNode
-  params?: Promise<any>
 }
 
 export default function ProtectedGroupLayout({
