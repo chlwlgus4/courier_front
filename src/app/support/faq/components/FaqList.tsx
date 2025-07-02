@@ -15,7 +15,7 @@ const FaqList = ({ slug }: FaqListProps) => {
       url: '/faqs',
       params: { tag: slug },
       spinner: false,
-    }).then((data) => data && setFaqs(data))
+    }).then(({ data }) => data && setFaqs(data))
   }, [slug])
 
   return (

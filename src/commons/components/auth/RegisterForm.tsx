@@ -49,7 +49,7 @@ export default function RegisterForm({
   const handleCheckUsername = async () => {
     setIsCheckingUsername(true)
     await checkUsername(username)
-      .then((data) => {
+      .then(({ data }) => {
         if (data) {
           if (data.isAvailable) errors.username = ''
           setIsUsernameAvailable(data.isAvailable)

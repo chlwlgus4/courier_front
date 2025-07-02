@@ -28,7 +28,7 @@ const Page = () => {
   // 2) 프로필 수정
   const handleProfileSave = async () => {
     if (!form?.email) return
-    const data = await modifyEmail(form.email)
+    const { data } = await modifyEmail(form.email)
     if (data) setUser(data.user)
   }
 

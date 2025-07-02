@@ -6,7 +6,7 @@ import { apiRequest } from '@/lib/fetcher'
  * 유저 정보 조회
  * @returns 유저 정보
  */
-export async function getUser(): Promise<ApiResponse<UserResponse> | null> {
+export async function getUser(): Promise<ApiResponse<UserResponse>> {
   return await apiRequest<UserResponse>({
     method: 'get',
     url: '/user/me',
@@ -19,7 +19,7 @@ export async function getUser(): Promise<ApiResponse<UserResponse> | null> {
  */
 export async function checkUsername(
   username: string,
-): Promise<ApiResponse<UsernameCheckResponse> | null> {
+): Promise<ApiResponse<UsernameCheckResponse>> {
   return await apiRequest<UsernameCheckResponse>({
     method: 'get',
     url: '/user/check-username',
@@ -35,7 +35,7 @@ export async function checkUsername(
  */
 export async function modifyEmail(
   email: string,
-): Promise<ApiResponse<UserResponse> | null> {
+): Promise<ApiResponse<UserResponse>> {
   return await apiRequest<UserResponse>({
     method: 'patch',
     url: '/user/modify-email',
