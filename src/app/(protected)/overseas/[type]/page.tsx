@@ -87,7 +87,7 @@ const ShippingPage = () => {
         destinationAddress: overseas?.destAddress,
         destinationAddressDetail: overseas?.destAddressDetail,
         notes: 'test',
-        images: overseas?.images,
+        images: images,
       })
 
       if (res?.status === 200) {
