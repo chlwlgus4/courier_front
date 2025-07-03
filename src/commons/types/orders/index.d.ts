@@ -1,12 +1,14 @@
+import { Country } from '@/app/(protected)/overseas/types/country'
+
 export interface OrdersSaveRequest {
   shippingTypeCode: string
   weight: string
   insuranceValue: string
-  originCountry: string
+  originCountryCode: string
   originPostalCode: string
   originAddress: string
   originAddressDetail: string
-  destinationCountry: string
+  destinationCountryCode: string
   destinationPostalCode: string
   destinationAddress: string
   destinationAddressDetail: string

@@ -70,25 +70,29 @@ const ShippingPage = () => {
       weight: Number(weight),
       insuranceValue: Number(insuranceValue),
     })
-    console.log(router)
-    console.log('overseas:', overseas)
-    const res = await saveOrders({
-      shippingTypeCode: overseas?.type ?? 'OVERSEAS',
-      weight: String(overseas?.weight),
-      insuranceValue: String(overseas?.insuranceValue),
-      originCountry: String(overseas?.originCountry),
-      originPostalCode: String(overseas?.originPostal),
-      originAddress: 'test',
-      originAddressDetail: 'test',
-      destinationCountry: 'test',
-      destinationPostalCode: String(overseas?.destPostal),
-      destinationAddress: 'test',
-      destinationAddressDetail: 'test',
-      notes: 'test',
-      images: overseas?.images,
-    })
-    if (res?.status === 200) {
-      router.push(`/overseas/result?id=${res?.data?.id}`)
+
+    if (!overseas?.originCountry || !overseas?.destCountry) {
+      router.push('/overseas/country')
+    } else {
+      const res = await saveOrders({
+        shippingTypeCode: overseas?.type ?? 'OVERSEAS',
+        weight: String(overseas?.weight),
+        insuranceValue: String(overseas?.insuranceValue),
+        originCountryCode: overseas?.originCountry.code,
+        originPostalCode: String(overseas?.originPostalCode),
+        originAddress: overseas.originAddress,
+        originAddressDetail: overseas?.originAddressDetail,
+        destinationCountryCode: overseas?.destCountry.code,
+        destinationPostalCode: String(overseas?.destinationPostalCode),
+        destinationAddress: overseas?.destAddress,
+        destinationAddressDetail: overseas?.destAddressDetail,
+        notes: 'test',
+        images: overseas?.images,
+      })
+
+      if (res?.status === 200) {
+        router.push(`/overseas/result?id=${res?.data?.id}`)
+      }
     }
   }
 

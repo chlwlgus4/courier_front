@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { getOrders } from '@/api/orders'
 import { OrderGetResponse } from '@/commons/types/orders'
@@ -37,7 +38,6 @@ export default function OrderPage() {
         if (endDate) params.append('endDate', endDate)
 
         const { data } = await getOrders(params)
-
         // TypeScript 오류 수정: 안전한 배열 체크
         if (data?.orders && data.orders.length > 0) {
           if (reset) {
@@ -73,11 +73,6 @@ export default function OrderPage() {
   useEffect(() => {
     handleGetOrders(0, true)
   }, [filter, search, startDate, endDate])
-
-  // 초기 데이터 로드
-  useEffect(() => {
-    handleGetOrders(0, true)
-  }, [])
 
   // 무한 스크롤을 위한 마지막 요소 참조
   const lastOrderElementRef = useCallback(
@@ -150,7 +145,12 @@ export default function OrderPage() {
 
   return (
     <div className="flex-1 p-4 space-y-4">
+      <label htmlFor="search" className="sr-only">
+        검색어
+      </label>
       <input
+        id={'search'}
+        name={'search'}
         type="text"
         placeholder="출발지, 도착지, 주소 검색"
         value={searchDebounce}
@@ -253,15 +253,23 @@ export default function OrderPage() {
                   )}
                 </div>
 
-                {order.images && order.images.length > 0 && (
-                  <div className="ml-4">
+                {order.images?.map((image) => (
+                  <div className="ml-4" key={image.originalFilename}>
                     <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                      <span className="text-xs text-gray-500">
-                        사진 {order.images.length}
-                      </span>
+                      {image.base64Data ? (
+                        <Image
+                          src={`data:${image.contentType};base64,${image.base64Data}`}
+                          alt={image.originalFilename}
+                          width={64}
+                          height={64}
+                          className="rounded"
+                        />
+                      ) : (
+                        <span className="text-xs text-gray-500">사진</span>
+                      )}
                     </div>
                   </div>
-                )}
+                ))}
               </div>
             </button>
           )

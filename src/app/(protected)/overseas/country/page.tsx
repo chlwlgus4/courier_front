@@ -8,6 +8,8 @@ import { overseasStore } from '@/store/overseasStore'
 type Address = {
   country: Country | null
   city: string
+  address: string
+  addressDetail: string
   postal: string
 }
 
@@ -18,25 +20,34 @@ export default function ShippingTypePage() {
   const [origin, setOrigin] = useState<Address>({
     country: overseas?.originCountry ?? null,
     city: overseas?.originCity ?? '',
-    postal: overseas?.originPostal ?? '',
+    address: overseas?.originAddress ?? '',
+    addressDetail: overseas?.originAddressDetail ?? '',
+    postal: overseas?.originPostalCode ?? '',
   })
   const [dest, setDest] = useState<Address>({
     country: overseas?.destCountry ?? null,
     city: overseas?.destCity ?? '',
-    postal: overseas?.destPostal ?? '',
+    address: overseas?.destAddress ?? '',
+    addressDetail: overseas?.destAddressDetail ?? '',
+    postal: overseas?.destinationPostalCode ?? '',
   })
 
-  const isValid = origin.country && dest.country
+  const isValid =
+    origin.country && dest.country && origin.address && dest.address
 
   const handleNext = () => {
     setOverseas({
       ...overseas,
       originCountry: origin.country,
       originCity: origin.city,
-      originPostal: origin.postal,
+      originAddress: origin.address,
+      originAddressDetail: origin.addressDetail,
+      originPostalCode: origin.postal,
       destCountry: dest.country,
       destCity: dest.city,
-      destPostal: dest.postal,
+      destAddress: dest.address,
+      destAddressDetail: dest.addressDetail,
+      destinationPostalCode: dest.postal,
     })
     router.push('/overseas/duty')
   }
@@ -53,9 +64,6 @@ export default function ShippingTypePage() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
-      {/*<div className="text-2xl font-semibold border-b-2 border-red-600 pb-2 text-red-600">*/}
-      {/*</div>*/}
-
       {/* 출발지 & 도착지 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white shadow rounded-lg p-6">
         {/* 출발지 */}
@@ -63,12 +71,6 @@ export default function ShippingTypePage() {
           <h3 className="font-medium">출발지</h3>
           {/* 국가 선택 */}
           <div className="flex items-center shadow-md rounded px-3 py-2">
-            {/*<Image*/}
-            {/*  src={`/flags/${origin.country?.code ?? 'KR'}.svg`}*/}
-            {/*  alt={origin.country?.name ?? 'South Korea'}*/}
-            {/*  width={24}*/}
-            {/*  height={16}*/}
-            {/*/>*/}
             <select
               className="ml-2 flex-1 focus:outline-none"
               value={origin.country?.code ?? ''}
@@ -96,7 +98,25 @@ export default function ShippingTypePage() {
             onChange={(e) => setOrigin((o) => ({ ...o, city: e.target.value }))}
           />
           <input
-            type="number"
+            type="text"
+            placeholder="주소 *"
+            className={inputClass}
+            value={origin.address}
+            onChange={(e) =>
+              setOrigin((o) => ({ ...o, address: e.target.value }))
+            }
+          />
+          <input
+            type="text"
+            placeholder="상세주소 (선택)"
+            className={inputClass}
+            value={origin.addressDetail}
+            onChange={(e) =>
+              setOrigin((o) => ({ ...o, addressDetail: e.target.value }))
+            }
+          />
+          <input
+            type="text"
             placeholder="우편번호"
             className={inputClass}
             value={origin.postal}
@@ -111,14 +131,6 @@ export default function ShippingTypePage() {
           <h3 className="font-medium">도착지</h3>
           {/* 국가 선택 */}
           <div className="flex items-center shadow rounded px-3 py-2">
-            {/*{dest.country && (*/}
-            {/*  <Image*/}
-            {/*    src={`/flags/${dest.country.code}.svg`}*/}
-            {/*    alt={dest.country.name}*/}
-            {/*    width={24}*/}
-            {/*    height={16}*/}
-            {/*  />*/}
-            {/*)}*/}
             <select
               className="ml-2 flex-1 focus:outline-none"
               value={dest.country?.code ?? ''}
@@ -130,7 +142,7 @@ export default function ShippingTypePage() {
                 }))
               }
             >
-              <option value="">국가/지역 *</option>
+              <option value="">국가 선택</option>
               {COUNTRY_LIST.map((c) => (
                 <option key={c.code} value={c.code}>
                   {c.name}
@@ -138,7 +150,6 @@ export default function ShippingTypePage() {
               ))}
             </select>
           </div>
-          {/* 도시, 우편번호 (선택) */}
           <input
             type="text"
             placeholder="도시"
@@ -147,7 +158,25 @@ export default function ShippingTypePage() {
             onChange={(e) => setDest((d) => ({ ...d, city: e.target.value }))}
           />
           <input
-            type="number"
+            type="text"
+            placeholder="주소 *"
+            className={inputClass}
+            value={dest.address}
+            onChange={(e) =>
+              setDest((d) => ({ ...d, address: e.target.value }))
+            }
+          />
+          <input
+            type="text"
+            placeholder="상세주소 (선택)"
+            className={inputClass}
+            value={dest.addressDetail}
+            onChange={(e) =>
+              setDest((d) => ({ ...d, addressDetail: e.target.value }))
+            }
+          />
+          <input
+            type="text"
             placeholder="우편번호"
             className={inputClass}
             value={dest.postal}
@@ -161,7 +190,7 @@ export default function ShippingTypePage() {
         disabled={!isValid}
         className="w-full bg-toss-500 hover:bg-toss-700 text-white py-3 rounded-lg disabled:opacity-50"
       >
-        화물 정보 입력
+        다음
       </button>
     </div>
   )

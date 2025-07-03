@@ -70,8 +70,8 @@ const Page = () => {
         <div className="bg-white p-4 rounded-xl shadow">
           {/* TODO: 실제 주문 정보 */}
           <p>서비스: {order?.shippingType}</p>
-          <p>출발지: {order?.originCountry}</p>
-          <p>도착지: {order?.destinationCountry}</p>
+          <p>출발지: {order?.originCountry?.name}</p>
+          <p>도착지: {order?.destinationCountry?.name}</p>
           <p>총 무게: {order?.weight}kg</p>
           <p>보험 금액: {order?.insuranceValue.toLocaleString()}원</p>
         </div>

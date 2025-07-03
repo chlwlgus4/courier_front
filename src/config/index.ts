@@ -1,5 +1,5 @@
 export const PAGE_TITLES: Record<string, string> = {
-  '/overseas/country': '국가 선택',
+  '/overseas/country': '주소 입력',
   '/overseas/shipping': '해외배송 신청',
   '/overseas/forwarding': '배송대행 신청',
   '/overseas/duty': '관세 및 주의사항',
