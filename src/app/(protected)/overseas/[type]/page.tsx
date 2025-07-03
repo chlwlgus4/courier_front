@@ -75,7 +75,7 @@ const ShippingPage = () => {
       router.push('/overseas/country')
     } else {
       const res = await saveOrders({
-        shippingTypeCode: overseas?.type ?? 'OVERSEAS',
+        shippingTypeCode: type as string,
         weight: String(overseas?.weight),
         insuranceValue: String(overseas?.insuranceValue),
         originCountryCode: overseas?.originCountry.code,
