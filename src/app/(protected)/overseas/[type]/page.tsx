@@ -76,8 +76,8 @@ const ShippingPage = () => {
     } else {
       const res = await saveOrders({
         shippingTypeCode: type as string,
-        weight: String(overseas?.weight),
-        insuranceValue: String(overseas?.insuranceValue),
+        weight: String(weight),
+        insuranceValue: String(insuranceValue),
         originCountryCode: overseas?.originCountry.code,
         originPostalCode: String(overseas?.originPostalCode),
         originAddress: overseas.originAddress,
