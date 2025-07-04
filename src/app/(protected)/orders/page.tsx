@@ -253,7 +253,7 @@ export default function OrderPage() {
                   )}
                 </div>
 
-                {order.images?.map((image) => (
+                {order.images?.slice(0, 3).map((image) => (
                   <div className="ml-4" key={image.originalFilename}>
                     <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
                       {image.base64Data ? (
@@ -270,6 +270,15 @@ export default function OrderPage() {
                     </div>
                   </div>
                 ))}
+                {order.images && order.images.length > 3 && (
+                  <div className="ml-4">
+                    <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                      <span className="text-xs text-gray-600 font-medium">
+                        +{order.images.length - 3}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </button>
           )
