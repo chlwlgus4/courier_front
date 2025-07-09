@@ -12,6 +12,7 @@ export const PAGE_TITLES: Record<string, string> = {
   '/purchase': '구매대행',
   '/orders': '주문 내역',
   '/orders/[id]': '주문 상세',
+  '/apply': '배송 정보 입력',
 }
 
 export const SERVICE_NAME: Record<string, string> = {
