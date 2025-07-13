@@ -20,8 +20,11 @@ const HomePage = () => {
     }
 
     router.push(
-      `/apply?country=${encodeURIComponent(selectedCountry)}&type=${encodeURIComponent(selectedType)}`,
+      `/pre-check?country=${encodeURIComponent(selectedCountry)}&type=${encodeURIComponent(selectedType)}`,
     )
+    // router.push(
+    //   `/apply?country=${encodeURIComponent(selectedCountry)}&type=${encodeURIComponent(selectedType)}`,
+    // )
   }
   return (
     <div className="flex-1 p-4 space-y-6">
@@ -40,18 +43,18 @@ const HomePage = () => {
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
           <DeliveryOptionButton
-            title="빠른배송"
+            title="특급배송"
             image={'/images/rocket.png'}
-            selected={selectedType === '빠른배송'}
-            onClick={() => setSelectedType('빠른배송')}
+            selected={selectedType === 'express'}
+            onClick={() => setSelectedType('express')}
             width={100}
             height={100}
           />
           <DeliveryOptionButton
-            title="느린배송"
+            title="일반배송"
             image={'/images/turtle.png'}
-            selected={selectedType === '느린배송'}
-            onClick={() => setSelectedType('느린배송')}
+            selected={selectedType === 'standard'}
+            onClick={() => setSelectedType('standard')}
             width={100}
             height={100}
           />
