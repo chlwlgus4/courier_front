@@ -40,8 +40,6 @@ const Page = () => {
 
   return (
     <div className="flex-1 p-4 space-y-6">
-      <h2 className="text-xl font-bold">인보이스 정보 입력</h2>
-
       <div className="space-y-4 text-sm">
         <div>
           <label className="font-medium block">송화인 이름</label>

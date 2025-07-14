@@ -17,8 +17,6 @@ const Page = () => {
   const weightRate = weight * (type === 'express' ? 7000 : 4000)
   const totalEstimate = baseRate + weightRate
 
-  const isShoongExclusive = country === '일본' || country === '홍콩' // 예시 전담배송 가능 국가
-
   const handleNext = () => {
     router.push(
       `/quote?country=${encodeURIComponent(country)}&type=${encodeURIComponent(
@@ -44,10 +42,6 @@ const Page = () => {
         <p>
           <strong>배송 방식:</strong>{' '}
           {type === 'express' ? '특급배송' : '일반배송'}
-        </p>
-        <p>
-          <strong>전담배송 가능 여부:</strong>{' '}
-          {isShoongExclusive ? '가능 (Shoong 전담배송)' : '불가'}
         </p>
         <p>
           <strong>예상 요금:</strong>{' '}

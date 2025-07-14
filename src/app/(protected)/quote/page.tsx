@@ -65,7 +65,7 @@ const QuotePage = () => {
         className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-xl"
         onClick={handleNext}
       >
-        인보이스 작성하기
+        배송 정보 작성 하기
       </button>
     </div>
   )

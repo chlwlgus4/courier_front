@@ -13,7 +13,10 @@ export const PAGE_TITLES: Record<string, string> = {
   '/orders': '주문 내역',
   '/orders/[id]': '주문 상세',
   '/apply': '배송 정보 입력',
-  '/payment': '결제하기',
+  '/invoice': '배송 정보 입력',
+  '/method': '배송 방법 안내',
+  '/quote': '견적 요약',
+  '/payment': '결제 하기',
 }
 
 export const SERVICE_NAME: Record<string, string> = {
