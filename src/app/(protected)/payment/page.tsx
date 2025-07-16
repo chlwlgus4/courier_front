@@ -104,6 +104,7 @@ const Page = () => {
       <div id="agreement" />
       {/* 쿠폰 체크박스 */}
       <button
+        disabled={!ready}
         onClick={handlePayment}
         className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-xl"
       >

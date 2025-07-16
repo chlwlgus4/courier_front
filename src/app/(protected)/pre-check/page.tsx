@@ -33,7 +33,7 @@ const Page = () => {
           물건 종류
         </label>
         <select
-          className="w-full border rounded-lg p-2"
+          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
           value={itemCategory}
           onChange={(e) => setItemCategory(e.target.value)}
         >
@@ -52,7 +52,7 @@ const Page = () => {
         <input
           type="number"
           placeholder="예: 1.5"
-          className="w-full border rounded-lg p-2"
+          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
         />
