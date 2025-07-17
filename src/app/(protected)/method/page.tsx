@@ -29,7 +29,7 @@ const Page = () => {
     <div className="flex-1 p-4 space-y-6">
       <h2 className="text-xl font-bold">배송 방법 안내</h2>
 
-      <div className="border rounded-lg p-4 space-y-3 bg-gray-50">
+      <div className="border border-gray-300 rounded-lg p-4 space-y-3 bg-gray-50">
         <p>
           <strong>배송 국가:</strong> {country}
         </p>

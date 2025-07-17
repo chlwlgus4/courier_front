@@ -44,7 +44,7 @@ const Page = () => {
         <div>
           <label className="font-medium block">송화인 이름</label>
           <input
-            className="w-full border p-2 rounded-lg"
+            className="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 p-2 rounded-lg"
             value={senderName}
             onChange={(e) => setSenderName(e.target.value)}
             placeholder="홍길동"
@@ -54,7 +54,7 @@ const Page = () => {
         <div>
           <label className="font-medium block">송화인 연락처</label>
           <input
-            className="w-full border p-2 rounded-lg"
+            className="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 p-2 rounded-lg"
             value={senderPhone}
             onChange={(e) => setSenderPhone(e.target.value)}
             placeholder="010-1234-5678"
@@ -66,7 +66,7 @@ const Page = () => {
         <div>
           <label className="font-medium block">수하인 이름</label>
           <input
-            className="w-full border p-2 rounded-lg"
+            className="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 p-2 rounded-lg"
             value={receiverName}
             onChange={(e) => setReceiverName(e.target.value)}
             placeholder="John Doe"
@@ -76,7 +76,7 @@ const Page = () => {
         <div>
           <label className="font-medium block">수하인 연락처</label>
           <input
-            className="w-full border p-2 rounded-lg"
+            className="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 p-2 rounded-lg"
             value={receiverPhone}
             onChange={(e) => setReceiverPhone(e.target.value)}
             placeholder="+1-123-456-7890"
@@ -86,7 +86,7 @@ const Page = () => {
         <div>
           <label className="font-medium block">수하인 주소</label>
           <textarea
-            className="w-full border p-2 rounded-lg"
+            className="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 p-2 rounded-lg"
             value={receiverAddress}
             onChange={(e) => setReceiverAddress(e.target.value)}
             placeholder="123 Street, City, Country"
@@ -96,7 +96,7 @@ const Page = () => {
         <div>
           <label className="font-medium block">물품 상세 설명</label>
           <textarea
-            className="w-full border p-2 rounded-lg"
+            className="w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 p-2 rounded-lg"
             value={itemDesc}
             onChange={(e) => setItemDesc(e.target.value)}
             placeholder="예: 의류 3벌, 총 무게 2kg"

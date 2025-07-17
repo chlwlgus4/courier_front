@@ -31,7 +31,7 @@ const QuotePage = () => {
     <div className="flex-1 p-4 space-y-6">
       <h2 className="text-xl font-bold">견적 요약</h2>
 
-      <div className="border rounded-lg p-4 bg-gray-50 space-y-2 text-sm">
+      <div className="border border-gray-300 rounded-lg p-4 bg-gray-50 space-y-2 text-sm">
         <p>
           <strong>배송 국가:</strong> {country}
         </p>
