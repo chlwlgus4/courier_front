@@ -1,5 +1,6 @@
 'use client'
 
+import { Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import TrackingSection from './TrackingSection'
@@ -7,9 +8,18 @@ import CountrySelect from '@/commons/components/home/CountrySelect'
 import DeliveryOptionButton from '@/commons/components/home/DeliveryOptionButton'
 import ResultCard from '@/commons/components/home/ResultCard'
 
+type Item = {
+  weight: string
+  width: string
+  height: string
+}
+
 const HomePage = () => {
   const [selectedType, setSelectedType] = useState<string>('')
   const [selectedCountry, setSelectedCountry] = useState<string>('')
+  const [items, setItems] = useState<Item[]>([
+    { weight: '', width: '', height: '' },
+  ])
 
   const router = useRouter()
 
@@ -26,6 +36,25 @@ const HomePage = () => {
     //   `/apply?country=${encodeURIComponent(selectedCountry)}&type=${encodeURIComponent(selectedType)}`,
     // )
   }
+
+  const addItem = () => {
+    setItems([...items, { weight: '', width: '', height: '' }])
+  }
+
+  const handleItemChange = (
+    index: number,
+    field: keyof Item,
+    value: string,
+  ) => {
+    const newItems = [...items]
+    newItems[index][field] = value
+    setItems(newItems)
+  }
+
+  const removeItem = (index: number) => {
+    setItems(items.filter((_, i) => i !== index))
+  }
+
   return (
     <div className="flex-1 p-4 space-y-6">
       <TrackingSection />
@@ -39,12 +68,84 @@ const HomePage = () => {
 
       <div className="space-y-4 p-1">
         <label className="block text-sm font-semibold text-gray-700">
+          물품 정보
+        </label>
+        {items.map((item, idx) => (
+          <div
+            key={idx}
+            className="relative p-4 border border-gray-300 rounded-lg"
+          >
+            {items.length > 1 && (
+              <button
+                type="button"
+                className="absolute top-2 right-2 text-red-500 hover:text-red-700 focus:outline-none"
+                onClick={() => removeItem(idx)}
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  예상 무게 (kg)
+                </label>
+                <input
+                  type="number"
+                  placeholder="예: 1.5"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  value={item.weight}
+                  onChange={(e) =>
+                    handleItemChange(idx, 'weight', e.target.value)
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  길이 (w)
+                </label>
+                <input
+                  type="number"
+                  placeholder="예: 1.5"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  value={item.width}
+                  onChange={(e) =>
+                    handleItemChange(idx, 'width', e.target.value)
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  높이 (h)
+                </label>
+                <input
+                  type="number"
+                  placeholder="예: 1.5"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  value={item.height}
+                  onChange={(e) =>
+                    handleItemChange(idx, 'height', e.target.value)
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button
+        type="button"
+        className="flex items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-2 text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-colors"
+        onClick={addItem}
+      >
+        <span className="mr-2 text-xl">➕</span>
+        <span className="font-medium">물품 추가</span>
+      </button>
+      <div className="space-y-4 p-1">
+        <label className="block text-sm font-semibold text-gray-700">
           배송 방식
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
           <DeliveryOptionButton
             title="특급배송"
-            image={'/images/rocket.png'}
             selected={selectedType === 'express'}
             onClick={() => setSelectedType('express')}
             width={100}
@@ -52,7 +153,6 @@ const HomePage = () => {
           />
           <DeliveryOptionButton
             title="일반배송"
-            image={'/images/turtle.png'}
             selected={selectedType === 'standard'}
             onClick={() => setSelectedType('standard')}
             width={100}

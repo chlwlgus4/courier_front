@@ -10,7 +10,7 @@ const DeliveryOptionButton = ({
   height = 32,
 }: {
   title: string
-  image: string
+  image?: string
   selected: boolean
   onClick: () => void
   width?: number
@@ -34,13 +34,15 @@ const DeliveryOptionButton = ({
         style={{ width: '100%' }}
       >
         <div className={btnClass}>
-          <Image
-            src={image}
-            alt={title}
-            className="object-contain"
-            height={height}
-            width={width}
-          />
+          {image && (
+            <Image
+              src={image}
+              alt={title}
+              className="object-contain"
+              height={height}
+              width={width}
+            />
+          )}
         </div>
         <span className="font-semibold text-base">{title}</span>
       </div>
