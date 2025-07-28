@@ -9,6 +9,7 @@ import DeliveryOptionButton from '@/commons/components/home/DeliveryOptionButton
 import ResultCard from '@/commons/components/home/ResultCard'
 
 type Item = {
+  name: string
   weight: string
   width: string
   height: string
@@ -18,7 +19,7 @@ const HomePage = () => {
   const [selectedType, setSelectedType] = useState<string>('')
   const [selectedCountry, setSelectedCountry] = useState<string>('')
   const [items, setItems] = useState<Item[]>([
-    { weight: '', width: '', height: '' },
+    { name: '', weight: '', width: '', height: '' },
   ])
 
   const router = useRouter()
@@ -38,7 +39,7 @@ const HomePage = () => {
   }
 
   const addItem = () => {
-    setItems([...items, { weight: '', width: '', height: '' }])
+    setItems([...items, { name: '', weight: '', width: '', height: '' }])
   }
 
   const handleItemChange = (
@@ -78,13 +79,27 @@ const HomePage = () => {
             {items.length > 1 && (
               <button
                 type="button"
-                className="absolute top-2 right-2 text-red-500 hover:text-red-700 focus:outline-none"
+                className="absolute top-2 right-2 text-red-300 hover:text-red-500 focus:outline-none"
                 onClick={() => removeItem(idx)}
               >
                 <Trash2 className="w-5 h-5" />
               </button>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="space-y-2 col-span-1 sm:col-span-4 md:col-span-1">
+                <label className="block text-sm font-medium text-gray-700">
+                  물품명
+                </label>
+                <input
+                  type="text"
+                  placeholder="예: 티셔츠"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  value={item.name}
+                  onChange={(e) =>
+                    handleItemChange(idx, 'name', e.target.value)
+                  }
+                />
+              </div>
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
                   예상 무게 (kg)
