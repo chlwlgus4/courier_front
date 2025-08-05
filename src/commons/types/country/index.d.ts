@@ -10,4 +10,5 @@ export interface CountryState {
   setCountries: (countries: Country[]) => void
   isLoaded: boolean
   setIsLoaded: (v: boolean) => void
+  getCountry: (id: string) => Country | undefined
 }
