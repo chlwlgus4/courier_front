@@ -2,27 +2,32 @@
 
 import { Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import TrackingSection from './TrackingSection'
 import CountrySelect from '@/commons/components/home/CountrySelect'
 import DeliveryOptionButton from '@/commons/components/home/DeliveryOptionButton'
-import ResultCard from '@/commons/components/home/ResultCard'
-
-type Item = {
-  name: string
-  weight: string
-  width: string
-  height: string
-}
+import ResultCard, { ResultCardRef } from '@/commons/components/home/ResultCard'
+import { ItemType } from '@/commons/types'
+import countryStore from '@/store/countryStore'
+import { deliveryStore } from '@/store/deliveryStore'
 
 const HomePage = () => {
   const [selectedType, setSelectedType] = useState<string>('')
   const [selectedCountry, setSelectedCountry] = useState<string>('')
-  const [items, setItems] = useState<Item[]>([
-    { name: '', weight: '', width: '', height: '' },
+  const [items, setItems] = useState<ItemType[]>([
+    { name: '', weight: '', width: '', height: '', size: '' },
   ])
 
+  const {
+    setDeliveryFee,
+    setItems: setStoreItems,
+    setCountry: setStoreCountry,
+  } = deliveryStore()
+
+  const { getCountry } = countryStore()
+
   const router = useRouter()
+  const resultCardRef = useRef<ResultCardRef>(null)
 
   const handleNext = () => {
     if (!selectedCountry || !selectedType) {
@@ -30,21 +35,27 @@ const HomePage = () => {
       return
     }
 
-    router.push(
-      `/pre-check?country=${encodeURIComponent(selectedCountry)}&type=${encodeURIComponent(selectedType)}`,
-    )
-    // router.push(
-    //   `/apply?country=${encodeURIComponent(selectedCountry)}&type=${encodeURIComponent(selectedType)}`,
-    // )
+    if (!resultCardRef.current) return
+
+    const fee = resultCardRef.current.getDeliveryFee()
+    setDeliveryFee(fee)
+    setStoreItems(items)
+    const country = getCountry(selectedCountry)
+    if (country) setStoreCountry(country)
+
+    router.push('/quote')
   }
 
   const addItem = () => {
-    setItems([...items, { name: '', weight: '', width: '', height: '' }])
+    setItems([
+      ...items,
+      { name: '', weight: '', width: '', height: '', size: '' },
+    ])
   }
 
   const handleItemChange = (
     index: number,
-    field: keyof Item,
+    field: keyof ItemType,
     value: string,
   ) => {
     const newItems = [...items]
@@ -102,7 +113,7 @@ const HomePage = () => {
               </div>
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
-                  예상 무게 (kg)
+                  무게 (kg)
                 </label>
                 <input
                   type="number"
@@ -116,7 +127,7 @@ const HomePage = () => {
               </div>
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
-                  길이 (w)
+                  가로 (w)
                 </label>
                 <input
                   type="number"
@@ -125,6 +136,20 @@ const HomePage = () => {
                   value={item.width}
                   onChange={(e) =>
                     handleItemChange(idx, 'width', e.target.value)
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  세로 (l)
+                </label>
+                <input
+                  type="number"
+                  placeholder="예: 1.5"
+                  className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  value={item.size}
+                  onChange={(e) =>
+                    handleItemChange(idx, 'size', e.target.value)
                   }
                 />
               </div>
@@ -176,7 +201,12 @@ const HomePage = () => {
         </div>
       </div>
 
-      <ResultCard country={selectedCountry} type={selectedType} />
+      <ResultCard
+        ref={resultCardRef}
+        country={selectedCountry}
+        type={selectedType}
+        box={items}
+      />
 
       {selectedCountry && selectedType && (
         <div className="pt-4">
